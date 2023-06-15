@@ -1,0 +1,23 @@
+.navTab {
+  width: 100%;
+  padding: 25px 0;
+  display: flex;
+  justify-content: center;
+  background-color: var(--main-color);
+  font-family: var(--font-family);
+}
+
+.navTab__menu {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  gap: 40px;
+}
+
+.navTab__link {
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 1.23;
+  color: var(--text-color);
+}

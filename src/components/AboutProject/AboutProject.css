@@ -1,0 +1,147 @@
+.aboutProject {
+  width: 100%;
+  padding: 0 70px;
+  box-sizing: border-box;
+  font-family: var(--font-family);
+  background-color: var(--bg-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 70px;
+}
+
+.aboutProject__description {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 40px;
+  align-items: center;
+}
+
+.description__column {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+.description__title {
+  margin: 0;
+  color: var(--text-color);
+  font-weight: 400;
+  font-size: 20px;
+  letter-spacing: -0.04em;
+  line-height: 1.2;
+}
+
+.description__text {
+  margin: 0;
+  color: var(--text-color);
+  font-weight: 400;
+  font-size: var(--font-size-medium);
+  letter-spacing: -0.04em;
+  line-height: 1.43;
+}
+
+.aboutProject__table {
+  padding: 0;
+  margin: 40px 0 0;
+  list-style: none;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 20% 1fr;
+}
+
+.table__cell {
+  padding: 9px 0;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.table__text {
+  margin: 0;
+  font-weight: 400;
+  font-size: var(--font-size-medium);
+  line-height: 1.21;
+  text-align: center;
+}
+
+.table__cell:nth-of-type(1) {
+  background-color: #3DDC84;
+  color: black;
+}
+
+.table__cell:nth-of-type(2) {
+  background-color: var(--main-color);
+}
+
+.table__cell:nth-of-type(3) {
+  color: #A0A0A0;;
+}
+
+.table__cell:nth-of-type(4) {
+  color: #A0A0A0;;
+}
+
+
+@media screen and (max-width: 984px){
+  .aboutProject {
+    padding: 0 50px;
+  }
+
+  .aboutProject__description {
+    column-gap: 30px;
+  }
+
+  .description__column {
+    gap: 22px;
+  }
+
+  .description__text {
+    font-size: var(--font-size-small);
+    line-height: 1.5;
+  }
+
+  .aboutProject__table {
+    margin: 23px 0 0;
+  }
+}
+
+@media screen and (max-width: 568px){
+  .aboutProject {
+    gap: 60px;
+    padding: 0 18px;
+  }
+
+  .aboutProject__description {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 56px;
+  }
+
+  .description__column {
+    gap: 16px;
+  }
+
+  .description__title {
+    font-size: 18px;
+  }
+
+  .description__text {
+    font-size: 11px;
+    line-height: 1.45;
+  }
+
+  .aboutProject__table {
+    margin: 0;
+    grid-template-columns: 35% 1fr;
+  }
+
+  .table__cell {
+    padding: 11px 0;
+  }
+
+  .table__text {
+    font-size: 11px;
+    line-height: 1.18;
+  }
+}
