@@ -1,4 +1,5 @@
 .section-title__wrapper {
+  font-family: var(--font-family);
   width: 100%;
   border-bottom: 1px solid #DADADA;
   padding-bottom: 23px;

@@ -1,0 +1,125 @@
+.techs {
+  width: 100%;
+  padding: 100px 70px;
+  box-sizing: border-box;
+  background-color: var(--main-color);
+  display: flex;
+  flex-direction: column;
+  gap: 90px;
+  font-family: var(--font-family);
+}
+
+.techs__description {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 26px;
+}
+
+.techs__title {
+  margin: 0;
+  color: var(--text-color);
+  font-size: 50px;
+  font-weight: 400;
+  letter-spacing: 1.16;
+  letter-spacing: -0.04em;
+}
+
+.techs__subtitle {
+  margin: 0;
+  max-width: 460px;
+  text-align: center;
+  color: var(--text-color);
+  font-size: var(--font-size-medium);
+  font-weight: 400;
+  line-height: 1.44;
+  letter-spacing: -0.04em;
+}
+
+.techs__table {
+  padding: 0;
+  margin: 10px 0 0;
+  list-style: none;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.techs-table__cell {
+  width: 90px;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background-color: #303030;
+  color: var(--text-color);
+  font-weight: 400;
+  font-size: var(--font-size-medium);
+  line-height: 1.21;
+  letter-spacing: -0.04em;
+}
+
+@media screen and (max-width: 984px){
+  .techs {
+    gap: 80px;
+    padding: 90px 50px;
+  }
+
+  .techs__description {
+    gap: 22px;
+  }
+
+  .techs__subtitle {
+    font-size: var(--font-size-small);
+    line-height: 1.5;
+  }
+
+  .techs__table {
+    margin: 3px 0 0;
+  }
+
+  .techs-table__cell {
+    width: 84px;
+    min-height: 57px;
+    font-size: var(--font-size-small);
+    line-height: 1.25;
+  }
+}
+
+@media screen and (max-width: 568px){
+  .techs {
+    gap: 60px;
+    padding: 60px 18px;
+  }
+
+  .techs__description {
+    gap: 24px;
+  }
+
+  .techs__title {
+    font-size: 30px;
+    line-height: 1.2;
+  }
+
+  .techs__subtitle {
+    max-width: 100%;
+    font-size: 11px;
+    line-height: 1.45;
+  }
+
+  .techs__table {
+    margin: -10px 0 0;
+    display: grid;
+    grid-template-columns: max-content max-content;
+    gap: 10px;
+  }
+
+  .techs-table__cell {
+    width: 84px;
+    min-height: 57px;
+    font-size: var(--font-size-small);
+    line-height: 1.25;
+  }
+}
+

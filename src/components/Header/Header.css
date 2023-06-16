@@ -54,4 +54,15 @@
   .header__menu {
     gap: 14px;
   }
+
+  .menu__link {
+    font-size: 10px;
+    line-height: 1.6;
+  }
+
+  .menu__button {
+    padding: 5px 12px;
+    font-size: 10px;
+    line-height: 1.6;
+  }
 }
