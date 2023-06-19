@@ -1,6 +1,7 @@
 
 import Header from '../Header/Header';
 import Main from '../Main/Main';
+import Footer from '../Footer/Footer';
 import '../App/App.css';
 
 export default function App() {
@@ -9,6 +10,7 @@ export default function App() {
       <>
         <Header />
         <Main />
+        <Footer />
       </>
     </div>
   )
