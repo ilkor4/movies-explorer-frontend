@@ -1,6 +1,7 @@
 
 import Header from '../Header/Header';
 import Main from '../Main/Main';
+import Movies from '../Movies/Movies';
 import Footer from '../Footer/Footer';
 import '../App/App.css';
 
@@ -9,7 +10,7 @@ export default function App() {
     <div className='App'>
       <>
         <Header />
-        <Main />
+        <Movies />
         <Footer />
       </>
     </div>
