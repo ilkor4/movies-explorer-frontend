@@ -1,0 +1,84 @@
+.card {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #222222;
+  font-family: var(--font-family);
+  box-shadow: 0px 16px 24px rgba(0, 0, 0, .05);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.card__image {
+  width: 100%;
+  height: 147px;
+  object-fit: cover;
+}
+
+.card__container {
+  width: 100%;
+  padding: 14px 12px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px
+}
+
+.card__description {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card__title {
+  margin: 0;
+  max-width: 230px;
+  color: var(--text-color);
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 1.23;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.card__save-button {
+  border: none;
+  padding: 0;
+  background-color: transparent;
+  width: 19px;
+  height: 19px;
+  background-image: url(../../images/saveIcon.svg);
+  background-repeat: no-repeat;
+  background-position: top;
+  cursor: pointer;
+  transition: 0.6s ease;
+}
+
+.card__save-button_active {
+  background-image: url(../../images/saveIconActive.svg);
+}
+
+.card__duration {
+  margin: 0;
+  color: #8B8B8B;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 1.18;
+}
+
+@media screen and (max-width: 984px){
+  .card__image {
+    height: 187px;
+  }
+}
+
+@media screen and (max-width: 568px){
+  .card__image {
+    height: 165px;
+  }
+}
+
