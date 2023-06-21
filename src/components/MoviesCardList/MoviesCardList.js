@@ -15,6 +15,7 @@ export default function MoviesCardList() {
           )}
           )}
       </ul>
+      <button className='cards__add-button cards__add-button_disabled' type='button'>Ещё</button>
     </section>
   )
 }

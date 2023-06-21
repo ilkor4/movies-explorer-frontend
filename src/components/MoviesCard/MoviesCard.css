@@ -58,6 +58,19 @@
   transition: 0.6s ease;
 }
 
+.card__delete-button {
+  border: none;
+  padding: 0;
+  background-color: transparent;
+  width: 19px;
+  height: 19px;
+  background-image: url(../../images/deleteIcon.svg);
+  background-repeat: no-repeat;
+  background-position: top;
+  cursor: pointer;
+  transition: 0.6s ease;
+}
+
 .card__save-button_active {
   background-image: url(../../images/saveIconActive.svg);
 }

@@ -11,7 +11,10 @@ export default function MoviesCard(props) {
       <div className='card__container'>
         <div className='card__description'>
           <h2 className='card__title'>{props.card.name}</h2>
-          <button className={cardSaveButtonClassName} type='button' aria-label='Кнопка сохранения фильма' onClick={() => setSaved(!saved)}></button>
+          {props.isMain
+            ? <button className={cardSaveButtonClassName} type='button' aria-label='Кнопка сохранения фильма' onClick={() => setSaved(!saved)}></button>
+            : <button className='card__delete-button' type='button' aria-label='Кнопка удаления фильма'></button>
+          }
         </div>
         <p className='card__duration'>{props.card.duration}</p>
       </div>
