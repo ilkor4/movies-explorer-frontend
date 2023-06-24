@@ -1,0 +1,9 @@
+.form__save-button_type_login {
+  margin: 140px 0 0;
+}
+
+@media screen and (max-width: 568px){
+  .form__save-button_type_login {
+    margin: 228px 0 0;
+  }
+}
