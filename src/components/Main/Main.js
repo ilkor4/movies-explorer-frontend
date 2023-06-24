@@ -6,7 +6,6 @@ import Portfolio from '../Portfolio/Portfolio';
 
 import '../Main/Main.css';
 
-
 export default function Main() {
   return(
     <main className='content'>
