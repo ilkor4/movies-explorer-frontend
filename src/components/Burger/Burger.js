@@ -17,7 +17,7 @@ export default function Burger(props) {
         <li><Link className="popup-navigation__link" to='/saved-movies' onClick={props.onClose}>Сохранённые фильмы</Link></li>
       </ul>
     </nav>
-    <Link className='popup__link' to='/profile'>
+    <Link className='popup__link' to='/profile' onClick={props.onClose}>
         Аккаунт
         <span className='popup__link-image'></span>
     </Link>
