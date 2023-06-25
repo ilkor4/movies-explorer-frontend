@@ -6,6 +6,7 @@ import Footer from '../Footer/Footer';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
 import Profile from '../Profile/Profile';
+import NotFound from '../NotFound/NotFound';
 
 import '../App/App.css';
 
@@ -42,6 +43,7 @@ export default function App() {
         } />
         <Route path='/signup' element={<Register />} />
         <Route path='/signin' element={<Login />} />
+        <Route path='/not-found' element={<NotFound />} />
       </Routes>
     </div>
   )
