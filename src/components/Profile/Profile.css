@@ -67,6 +67,10 @@
   font-weight: 400;
 }
 
+.form__profile-input::placeholder {
+  color: var(--text-color);
+}
+
 .form__profile-input:focus {
   outline: none;
   border-bottom: 1px solid #4285F4;
@@ -90,6 +94,11 @@
   font-weight: 400;
   line-height: 1.23;
   cursor: pointer;
+  transition: .7s ease;
+}
+
+.form__profile-save-button:hover {
+  opacity: .8;
 }
 
 .form__profile-link {
@@ -100,6 +109,11 @@
   font-size: 13px;
   font-weight: 500;
   line-height: 1.23;
+  transition: .7s ease;
+}
+
+.form__profile-link:hover {
+  opacity: .7;
 }
 
 @media screen and (max-width: 984px){

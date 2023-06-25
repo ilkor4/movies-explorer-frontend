@@ -4,7 +4,7 @@ import '../AboutProject/AboutProject.css';
 
 export default function AboutProject() {
   return(
-    <section className='aboutProject' aria-label='Секция описания проекта'>
+    <section className='aboutProject' aria-label='Секция описания проекта' id='aboutProject'>
       <SectionTitle title="О проекте"/>
       <div className='aboutProject__description'>
         <div className='description__column'>

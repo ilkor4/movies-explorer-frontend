@@ -36,6 +36,7 @@
   width: 100%;
   background-color: #2F2F2F;
   border: none;
+  color: var(--text-color);
 }
 
 .searchForm__input::placeholder {
@@ -66,6 +67,11 @@
   background-size: contain;
   background-repeat: no-repeat;
   cursor: pointer;
+  transition: .7s ease;
+}
+
+.searchForm__button:hover {
+  opacity: .8;
 }
 
 @media screen and (max-width: 984px) {

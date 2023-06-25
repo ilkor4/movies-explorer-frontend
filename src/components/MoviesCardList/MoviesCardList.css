@@ -32,6 +32,11 @@
   line-height: 1.25;
   color: var(--text-color);
   cursor: pointer;
+  transition: .7s ease;
+}
+
+.cards__add-button:hover {
+  opacity: .8;
 }
 
 .cards__add-button_disabled {

@@ -58,6 +58,10 @@
   transition: 0.6s ease;
 }
 
+.card__save-button:hover {
+  opacity: .8;
+}
+
 .card__delete-button {
   border: none;
   padding: 0;
@@ -69,6 +73,10 @@
   background-position: top;
   cursor: pointer;
   transition: 0.6s ease;
+}
+
+.card__delete-button:hover {
+  opacity: .8;
 }
 
 .card__save-button_active {

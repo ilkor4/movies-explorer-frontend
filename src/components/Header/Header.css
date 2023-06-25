@@ -13,6 +13,11 @@
   width: 38px;
   height: 38px;
   object-fit: contain;
+  transition: .7s ease;
+}
+
+.header__logo:hover {
+  opacity: .7;
 }
 
 .header__menu {
@@ -27,6 +32,11 @@
   font-size: 12px;
   font-weight: 500;
   line-height: 1.33;
+  transition: .7s ease;
+}
+
+.menu__link:hover {
+  opacity: .7;
 }
 
 .menu__button {
@@ -38,6 +48,12 @@
   font-size: var(--font-size-small);
   font-weight: 500;
   line-height: 1.33;
+  cursor: pointer;
+  transition: .7s ease;
+}
+
+.menu__button:hover {
+  opacity: .8;
 }
 
 @media screen and (max-width: 984px) {

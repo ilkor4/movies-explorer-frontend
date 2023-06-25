@@ -9,8 +9,8 @@ export default function Footer() {
         <p className='footer__caption'>© 2023</p>
         <nav>
           <ul className='footer__links'>
-            <li><Link  className='footer__link' to='#'>Яндекс.Практикум</Link></li>
-            <li><Link  className='footer__link' to='#'>Github</Link></li>
+            <li><Link  className='footer__link' to='https://practicum.yandex.ru/?source=pwa' target='blank'>Яндекс.Практикум</Link></li>
+            <li><Link  className='footer__link' to='https://github.com/ilkor4' target='blank'>Github</Link></li>
           </ul>
         </nav>
       </div>

@@ -16,7 +16,7 @@ export default function Login() {
           <input className='form__input form__input_type_password' name="password" type="password" id="inputPassword" required minLength="2" maxLength="30"></input>
           <p className='form__text-error'></p>
           <button className="form__save-button form__save-button_type_login" type="submit">Войти</button>
-          <p className="form__caption">Ещё не зарегистрированы?<Link to="/sign-up" className='form__link'>Регистрация</Link></p>
+          <p className="form__caption">Ещё не зарегистрированы?<Link to="/signup" className='form__link'>Регистрация</Link></p>
         </form>
       </div>
     </main>

@@ -55,6 +55,11 @@
   text-decoration: none;
   font-weight: 500;
   line-height: 1.21;
+  transition: .7s ease;
+}
+
+.biography__link {
+  opacity: .7;
 }
 
 .profile__image {

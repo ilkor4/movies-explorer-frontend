@@ -5,10 +5,10 @@ import '../Header/Header.css';
 export default function Header() {
   return(
     <header className='header'>
-      <img src={headerLogo} alt="Логотип сайта" />
+      <Link to='/'><img src={headerLogo} alt="Логотип сайта" className='header__logo'/></Link>
       <nav className='header__menu'>
-        <Link className='menu__link' to="#">Регистрация</Link>
-        <button className='menu__button'>Войти</button>
+        <Link className='menu__link' to="/signup">Регистрация</Link>
+        <Link to="/signin"><button className='menu__button'>Войти</button></Link>
       </nav>
     </header>
   )

@@ -45,6 +45,11 @@
   font-weight: 400;
   line-height: 1.67;
   letter-spacing: -0.04em;
+  transition: .7s ease;
+}
+
+.portfolio__link:hover {
+  opacity: .7;
 }
 
 .portfolio__link_type_no-border {

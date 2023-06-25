@@ -18,7 +18,7 @@ export default function Register() {
           <input className='form__input form__input_type_password' name="password" type="password" id="inputPassword" required minLength="2" maxLength="30"></input>
           <p className='form__text-error'>Что-то пошло не так...</p>
           <button className="form__save-button" type="submit">Зарегистрироваться</button>
-          <p className="form__caption">Уже зарегистрированы? <Link to="/sign-in" className='form__link'>Войти</Link></p>
+          <p className="form__caption">Уже зарегистрированы? <Link to="/signin" className='form__link'>Войти</Link></p>
         </form>
       </div>
     </main>
