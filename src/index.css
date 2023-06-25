@@ -1,15 +1,12 @@
 @import url(./vendor/normalize.css);
 @import url(./vendor/fonts/fonts.css);
 
-body {
-  margin: 0;
+.root {
   background-color: #202020;
   --main-color: #272727;
   --bg-color: #202020;
   --text-color: #fff;
   --font-family: 'Inter','Helvetica Neue', Arial, sans-serif;
-  --font-size-extra-large: 54px;
-  --font-size-large: 40px;
   --font-size-medium: 14px;
   --font-size-small: 12px;
 }

@@ -1,0 +1,113 @@
+.popup {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  font-family: var(--font-family);
+  background-color: rgba(0, 0, 0, 0.3);
+  left: 0;
+  top: 0;
+  justify-content: flex-end;
+  align-items: center;
+  display: flex;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.6s ease-in;
+}
+
+.popup_opened {
+  opacity: 1;
+  visibility: visible;
+}
+
+.popup__container {
+  padding: 22px 22px 92px 22px;
+  box-sizing: border-box;
+  position: relative;
+  width: 68%;
+  height: 100%;
+  background-color: var(--bg-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 105px;
+}
+
+.popup__close-button {
+  align-self: flex-end;
+  width: 25px;
+  height: 25px;
+  padding: 0;
+  border: none;
+  background-color: var(--bg-color);
+  background-image: url(../../images/closeIcon.svg);
+  background-repeat: no-repeat;
+  cursor: pointer;
+  transition: .7s ease;
+}
+
+.popup__close-button:hover {
+  opacity: .8;
+}
+
+.popup-navigation__list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  gap: 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.popup-navigation__link {
+  text-decoration: none;
+  color: var(--text-color);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.24;
+  transition: .7s ease;
+}
+
+.popup-navigation__link:hover {
+  opacity: .7;
+}
+
+.popup-navigation__link:active {
+  font-weight: 500;
+}
+
+.popup__link {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  font-size: var(--font-size-medium);
+  text-decoration: none;
+  font-weight: 500;
+  line-height: 1.14;
+  color: var(--text-color);
+  gap: 13px;
+  transition: .7s ease;
+}
+
+.popup__link:hover {
+  opacity: .7;
+}
+
+.popup__link-image {
+  width: 30px;
+  height: 30px;
+  background-color: #313131;
+  border-radius: 6px;
+  background-image: url(../../images/profileIcon.png);
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+@media screen and (max-width: 984px){
+  .popup__container {
+    padding: 13px 13px 48px 13px;
+    width: 100%;
+  }
+}
