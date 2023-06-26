@@ -87,6 +87,15 @@
   }
 }
 
+@media screen and (max-width: 776px){
+  .techs__table {
+    margin: -10px 0 0;
+    display: grid;
+    grid-template-columns: max-content max-content;
+    gap: 10px;
+  }
+}
+
 @media screen and (max-width: 568px){
   .techs {
     gap: 60px;
@@ -106,13 +115,6 @@
     max-width: 100%;
     font-size: 11px;
     line-height: 1.45;
-  }
-
-  .techs__table {
-    margin: -10px 0 0;
-    display: grid;
-    grid-template-columns: max-content max-content;
-    gap: 10px;
   }
 
   .techs-table__cell {
