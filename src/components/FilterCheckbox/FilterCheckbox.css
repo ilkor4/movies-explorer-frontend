@@ -1,0 +1,62 @@
+.tumb {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+}
+
+.tumb__checkbox {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(0 0 0 0);
+}
+
+.tumb__visible-checkbox {
+  display: inline-block;
+  vertical-align: middle;
+  width: 36px;
+  height: 20px;
+  background-image: url(../../images/tumbOffIcon.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+  transition: .8s ease;
+}
+
+.tumb__checkbox:checked + .tumb__visible-checkbox {
+  background-image: url(../../images/tumbIcon.svg);
+}
+
+
+.tumb__title {
+  padding: 10px 30px;
+  border-left: 1px solid #505050;
+  color: var(--text-color);
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.38;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+@media screen and (max-width: 984px) {
+  .tumb__title {
+    padding: 10px 20px;
+  }
+}
+
+@media screen and (max-width: 568px) {
+  .tumb {
+    justify-content: center;
+  }
+
+  .tumb__title {
+    font-size: 11px;
+    line-height: 1.64;
+    padding: 0;
+    border: none;
+  }
+}

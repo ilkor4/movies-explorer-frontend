@@ -1,0 +1,21 @@
+.content {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 110px;
+  background-color: var(--bg-color);
+  width: 100%;
+}
+
+@media screen and (max-width: 984px){
+  .content {
+    gap: 90px;
+  }
+}
+
+@media screen and (max-width: 568px){
+  .content {
+    gap: 70px;
+  }
+}

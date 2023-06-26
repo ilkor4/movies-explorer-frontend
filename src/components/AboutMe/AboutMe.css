@@ -1,0 +1,146 @@
+.aboutMe {
+  width: 100%;
+  padding: 0 70px;
+  box-sizing: border-box;
+  font-family: var(--font-family);
+  background-color: var(--bg-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 66px;
+}
+
+.aboutMe__profile {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.profile__biography {
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.biography__title {
+  margin: 0;
+  color: var(--text-color);
+  font-size: 50px;
+  font-weight: 400;
+  line-height: 1.16;
+  letter-spacing: -0.04em;
+}
+
+.biography__subtitle {
+  margin: 0;
+  color: var(--text-color);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.11;
+}
+
+.biography__text {
+  margin: 8px 0 0;
+  color: var(--text-color);
+  font-size: var(--font-size-medium);
+  font-weight: 400;
+  line-height: 1.57;
+}
+
+.biography__link {
+  margin: auto 0 0;
+  color: var(--text-color);
+  font-size: var(--font-size-medium);
+  text-decoration: none;
+  font-weight: 500;
+  line-height: 1.21;
+  transition: .7s ease;
+}
+
+.biography__link {
+  opacity: .7;
+}
+
+.profile__image {
+  width: 270px;
+  height: 327px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+@media screen and (max-width: 984px){
+  .aboutMe {
+    padding: 0 50px;
+  }
+
+  .profile__biography {
+    max-width: 364px;
+    gap: 16px;
+  }
+
+  .biography__title {
+    font-size: 40px;
+    line-height: 1;
+  }
+
+  .biography__subtitle {
+    font-size: var(--font-size-small);
+    line-height: 1.5;
+  }
+
+  .biography__text {
+    margin: 4px 0 0;
+    font-size: var(--font-size-small);
+    line-height: 1.5;
+  }
+
+  .profile__image {
+    width: 255px;
+    height: 307px;
+  }
+}
+
+@media screen and (max-width: 568px){
+  .aboutMe {
+    padding: 0 14px;
+    gap: 60px;
+  }
+
+  .aboutMe__profile {
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: 40px;
+  }
+
+  .profile__biography {
+    max-width: 100%;
+    gap: 20px;
+  }
+
+  .biography__title {
+    font-size: 30px;
+    line-height: 1.2;
+  }
+
+  .biography__subtitle {
+    font-size: 11px;
+    line-height: 1.45;
+  }
+
+  .biography__text {
+    margin: 0;
+    font-size: 11px;
+    line-height: 1.45;
+  }
+
+  .biography__link {
+    margin: 20px 0 0;
+  }
+
+  .profile__image {
+    width: 100%;
+    height: initial;
+    aspect-ratio: 0.82 / 1;
+  }
+}

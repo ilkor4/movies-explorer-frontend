@@ -1,0 +1,35 @@
+.navigation {
+  margin-left: auto;
+  font-family: var(--font-family);
+}
+
+.navigation__list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.navigation__link {
+  text-decoration: none;
+  color: var(--text-color);
+  font-size: var(--font-size-medium);
+  font-weight: 400;
+  line-height: 1.29;
+  transition: .7s ease;
+}
+
+.navigation__link:hover {
+  opacity: .7;
+}
+
+.navigation__link:active {
+  font-weight: 500;
+}
+
+@media screen and (max-width: 984px){
+  .navigation {
+    display: none;
+  }
+}

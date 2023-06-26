@@ -1,0 +1,25 @@
+.section-title__wrapper {
+  font-family: var(--font-family);
+  width: 100%;
+  border-bottom: 1px solid #DADADA;
+  padding-bottom: 23px;
+}
+
+.section-title__title {
+  margin: 0;
+  color: var(--text-color);
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 1.23;
+}
+
+@media screen and (max-width: 568px){
+  .section-title__wrapper {
+    padding-bottom: 28px;
+  }
+
+  .section-title__title {
+    font-size: 18px;
+  }
+}
