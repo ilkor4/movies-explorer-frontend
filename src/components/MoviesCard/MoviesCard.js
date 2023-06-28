@@ -7,10 +7,10 @@ export default function MoviesCard(props) {
 
   return(
     <div className='card'>
-      <img className='card__image' src={props.card.link} alt="Изображение фильма" />
+      <img className='card__image' src={'https://api.nomoreparties.co/' + props.card.image.url} alt="Изображение фильма" />
       <div className='card__container'>
         <div className='card__description'>
-          <h2 className='card__title'>{props.card.name}</h2>
+          <h2 className='card__title'>{props.card.nameRU}</h2>
           {props.isMain
             ? <button className={cardSaveButtonClassName} type='button' aria-label='Кнопка сохранения фильма' onClick={() => setSaved(!saved)}></button>
             : <button className='card__delete-button' type='button' aria-label='Кнопка удаления фильма'></button>

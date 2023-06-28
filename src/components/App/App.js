@@ -10,11 +10,19 @@ import Register from '../Register/Register';
 import Login from '../Login/Login';
 import Profile from '../Profile/Profile';
 import NotFound from '../NotFound/NotFound';
+import { getMovies } from '../../utils/MoviesApi';
 
 import '../App/App.css';
 
 export default function App() {
   const [isBurgerOpen, setIsBurgerOpen] = React.useState(false);
+  const [movies, setMovies] = React.useState([]);
+
+  React.useEffect(() => {
+    getMovies()
+      .then((movies) => setMovies(movies))
+      .catch((err) => console.log(err))
+  }, [])
 
   return(
     <div className='App'>
@@ -29,7 +37,7 @@ export default function App() {
         <Route path='/movies' element={
           <>
             <HeaderLanding onBurgerClick= {() => setIsBurgerOpen(true)} />
-            <Movies isMain={true}/>
+            <Movies isMain={true} movies={movies}/>
             <Footer />
             <Burger onClose= {() => setIsBurgerOpen(false)} isBurgerOpen={isBurgerOpen}/>
           </>

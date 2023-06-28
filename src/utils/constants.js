@@ -8,6 +8,8 @@ const techsCells = [
   'mongoDB'
 ]
 
+const BASE_URL = 'http://api.ilkor.students.nomoredomains.rocks';
+
 const moviesCardsArray = [
   {
     name: 'Titanic',
@@ -93,5 +95,6 @@ const moviesCardsArray = [
 
 export {
   techsCells,
-  moviesCardsArray
+  moviesCardsArray,
+  BASE_URL,
 }

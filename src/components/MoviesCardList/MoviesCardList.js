@@ -11,7 +11,7 @@ export default function MoviesCardList(props) {
   return(
     <section className='cards' aria-label='Секция с карточками фильмов'>
       <ul className='cards__list'>
-        {moviesCardsArray.map((item, index) => {
+        {props.movies.map((item, index) => {
           return(
             <li key={index}>
               <MoviesCard  card={item} isMain={props.isMain}/>
