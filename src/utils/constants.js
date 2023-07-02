@@ -8,7 +8,7 @@ const techsCells = [
   'mongoDB'
 ]
 
-const BASE_URL = 'http://api.ilkor.students.nomoredomains.rocks';
+const BASE_URL = 'http://localhost:3000';
 
 const moviesCardsArray = [
   {

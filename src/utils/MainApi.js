@@ -18,6 +18,7 @@ export const register = (name, email, password) => {
 export const authorize = (email, password) => {
   return fetch(BASE_URL + '/signin', {
     method: 'POST',
+    credentials: 'include',
     headers: {
       "Content-Type": "application/json"
     },
@@ -33,6 +34,9 @@ export const checkToken = () => {
   return fetch(BASE_URL + '/users/me', {
     method: 'GET',
     credentials: 'include',
+    headers: {
+      "Content-Type": "application/json",
+    },
   })
     .then((res) => handleSubmitResponse(res));
 }
@@ -92,7 +96,7 @@ export const saveMovie = (movieData) => {
     .then((res) => handleSubmitResponse(res));
 }
 
-export const deleteMovien = (movieId) => {
+export const deleteMovie = (movieId) => {
   return fetch(BASE_URL + `/movies/${movieId}`, {
     method: 'DELETE',
     credentials: 'include',
