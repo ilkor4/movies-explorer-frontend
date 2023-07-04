@@ -41,7 +41,15 @@
 
 .cards__add-button_disabled {
   padding: 0;
-  visibility: hidden;
+  display: none;
+}
+
+@media screen and (max-width: 1270px){
+  .cards__list {
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 30px;
+    row-gap: 36px;
+  }
 }
 
 @media screen and (max-width: 984px){
@@ -51,8 +59,6 @@
 
   .cards__list {
     grid-template-columns: repeat(2, 1fr);
-    column-gap: 30px;
-    row-gap: 36px;
   }
 }
 

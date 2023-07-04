@@ -1,6 +1,5 @@
 import MoviesCard from '../MoviesCard/MoviesCard';
 
-import { moviesCardsArray } from '../../utils/constants';
 import '../MoviesCardList/MoviesCardList.css';
 
 export default function MoviesCardList(props) {
@@ -14,7 +13,7 @@ export default function MoviesCardList(props) {
         {props.movies.map((item, index) => {
           return(
             <li key={index}>
-              <MoviesCard  card={item} isMain={props.isMain}/>
+              <MoviesCard  card={item} saveMovies={props.saveMovies} isMain={props.isMain} onLike={props.onLike} onDelete={props.onDelete}/>
             </li>
           )}
           )}

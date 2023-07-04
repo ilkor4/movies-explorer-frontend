@@ -7,7 +7,7 @@ export default function Movies(props) {
     <main className='movies'>
       <>
         <SearchForm />
-        <MoviesCardList isMain={props.isMain} movies={props.movies}/>
+        <MoviesCardList isMain={props.isMain} movies={props.movies} saveMovies={props.saveMovies} onLike={props.onLike} onDelete={props.onDelete} />
       </>
     </main>
   )

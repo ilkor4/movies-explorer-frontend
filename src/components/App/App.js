@@ -12,12 +12,16 @@ import Register from '../Register/Register';
 import Login from '../Login/Login';
 import Profile from '../Profile/Profile';
 import NotFound from '../NotFound/NotFound';
+import Preloader from '../Preloader/Preloader';
 import {
   checkToken,
   register,
   authorize,
   signOut,
   updateUser,
+  getUserMovies,
+  saveMovie,
+  deleteMovie,
 } from '../../utils/MainApi';
 import { getMovies } from '../../utils/MoviesApi';
 
@@ -28,6 +32,7 @@ export default function App() {
   const [isLogged, setIsLogged] = React.useState(false);
   const [isBurgerOpen, setIsBurgerOpen] = React.useState(false);
   const [movies, setMovies] = React.useState([]);
+  const [saveMovies, setSaveMovies] = React.useState([]);
   const navigate = useNavigate();
 
   React.useEffect(() => {
@@ -36,11 +41,14 @@ export default function App() {
 
   React.useEffect(() => {
     if (isLogged) {
-      getMovies()
-      .then((movies) => setMovies(movies))
+      Promise.all([getMovies(), getUserMovies()])
+      .then(([movies, saveMovies]) => {
+        setMovies(movies);
+        setSaveMovies(saveMovies);
+      })
       .catch((err) => console.log(err))
     }
-  }, [])
+  }, [isLogged, navigate])
 
   const handleCheckToken = () => {
     checkToken()
@@ -76,8 +84,44 @@ export default function App() {
 
   const handleUpdateUser = (name, email) => {
     updateUser(name, email)
+    return(<Preloader />)
       .then((user) => setCurrentUser(user))
       .catch((err) => console.log(err));
+  }
+
+  const handleUserMovies = () => {
+    getUserMovies()
+      .then((saveMovies) => setSaveMovies(saveMovies))
+      .catch((err) => console.log(err));
+  }
+
+  const handleLikeMovie = (movie) => {
+    getUserMovies()
+      .then((saveMovies) => {
+        if (!isSaveMovie(saveMovies, movie.id)) handleSaveMovie(movie);
+        else handleDeleteMovie(getMyId(saveMovies, movie.id));
+      })
+      .catch((err) => console.log(err))
+  }
+
+  const handleSaveMovie = (movie) => {
+    saveMovie(movie)
+    .then(() => handleUserMovies())
+    .catch((err) => console.log(err));
+  }
+
+  const handleDeleteMovie = (movieId) => {
+    deleteMovie(movieId)
+      .then(() => handleUserMovies())
+      .catch((err) => console.log(err));
+  }
+
+  const isSaveMovie = (saveMovies, movieId) => {
+    return saveMovies.some((movie) => movie.movieId === movieId);
+  }
+
+  const getMyId = (saveMovies, movieId) => {
+    return (saveMovies.find((movie) => movie.movieId === movieId))._id;
   }
 
   return(
@@ -101,7 +145,7 @@ export default function App() {
             <ProtectedRoute isLogged={isLogged} element={
               <>
                 <HeaderLanding onBurgerClick= {() => setIsBurgerOpen(true)} />
-                <Movies isMain={true} movies={movies}/>
+                <Movies isMain={true} movies={movies} saveMovies={saveMovies} onLike={handleLikeMovie}/>
                 <Footer />
                 <Burger onClose= {() => setIsBurgerOpen(false)} isBurgerOpen={isBurgerOpen}/>
               </>
@@ -111,7 +155,7 @@ export default function App() {
             <ProtectedRoute isLogged={isLogged} element={
               <>
                 <HeaderLanding onBurgerClick= {() => setIsBurgerOpen(true)} />
-                <Movies isMain={false} movies={movies}/>
+                <Movies isMain={false} movies={saveMovies} saveMovies={saveMovies} onDelete={handleDeleteMovie}/>
                 <Footer />
                 <Burger onClose= {() => setIsBurgerOpen(false)} isBurgerOpen={isBurgerOpen} />
               </>
