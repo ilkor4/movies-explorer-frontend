@@ -11,27 +11,38 @@ export default function Register(props) {
     email: '',
     password: '',
   });
+  const [errors, setErrors] = useState([]);
+  const [isValid, setIsValid] = useState(false);
 
   const handleChange = (evt) => {
-    const { name, value } = evt.target;
+    const { name, value, validationMessage } = evt.target;
 
     setUserInfo({
       ...userInfo,
       [name]: value,
     });
+
+    setErrors(validationMessage);
+
+    setIsValid(evt.target.closest('form').checkValidity());
   }
 
-    const handleSubmit = (evt) => {
-      evt.preventDefault();
 
-      props.onRegister(userInfo.name, userInfo.email, userInfo.password);
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
 
-      setUserInfo({
-        name: '',
-        email: '',
-        password: '',
-      })
-    }
+    props.onRegister(userInfo.name, userInfo.email, userInfo.password);
+
+    setUserInfo({
+      name: '',
+      email: '',
+      password: '',
+    });
+
+    setErrors('');
+
+    setIsValid(false);
+  }
 
   return(
     <main className='register'>
@@ -45,8 +56,11 @@ export default function Register(props) {
           <input className='form__input' onChange={handleChange} name="email" type="email" id="inputEmail" required minLength="2" maxLength="30"></input>
           <legend className='form__title'>Пароль</legend>
           <input className='form__input form__input_type_password' onChange={handleChange} name="password" type="password" id="inputPassword" required minLength="2" maxLength="30"></input>
-          <p className='form__text-error'>Что-то пошло не так...</p>
-          <button className="form__save-button" type="submit">Зарегистрироваться</button>
+          <p className='form__text-error'>{errors}</p>
+          { isValid
+            ? <button className="form__save-button" type="submit">Зарегистрироваться</button>
+            : <button className="form__save-button" disabled type="submit">Зарегистрироваться</button>
+          }
           <p className="form__caption">Уже зарегистрированы? <Link to="/signin" className='form__link'>Войти</Link></p>
         </form>
       </div>

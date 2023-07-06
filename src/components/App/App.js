@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import React from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import ProtectedRoute from '../ProtectedRoute';
@@ -12,7 +12,7 @@ import Register from '../Register/Register';
 import Login from '../Login/Login';
 import Profile from '../Profile/Profile';
 import NotFound from '../NotFound/NotFound';
-import Preloader from '../Preloader/Preloader';
+import InfoTooltip from '../InfoTooltip/InfoTooltip';
 import {
   checkToken,
   register,
@@ -33,11 +33,12 @@ export default function App() {
   const [isBurgerOpen, setIsBurgerOpen] = React.useState(false);
   const [movies, setMovies] = React.useState([]);
   const [saveMovies, setSaveMovies] = React.useState([]);
+  const [message, setMessage] = React.useState('');
   const navigate = useNavigate();
 
   React.useEffect(() => {
     handleCheckToken();
-  }, [navigate]);
+  }, [isLogged]);
 
   React.useEffect(() => {
     if (isLogged) {
@@ -48,7 +49,7 @@ export default function App() {
       })
       .catch((err) => console.log(err))
     }
-  }, [isLogged, navigate])
+  }, [isLogged]);
 
   const handleCheckToken = () => {
     checkToken()
@@ -63,7 +64,7 @@ export default function App() {
   const handleRegisterUser = (name, email, password) => {
     register(name, email, password)
       .then(() => handleAuthorizedUser(email, password))
-      .catch((err) => console.log(err));
+      .catch((err) => setMessage(err));
   }
 
   const handleAuthorizedUser = (email, password) => {
@@ -73,26 +74,28 @@ export default function App() {
 
         navigate('/movies', { replace: true });
       })
-      .catch((err) => console.log(err));
+      .catch((err) => setMessage(err));
   }
 
   const handleSignoutUser = () => {
     signOut()
-      .then(() => navigate('/', { replace: true }))
-      .catch((err) => console.log(err));
+      .then(() => {
+        setIsLogged(false);
+        navigate('/', { replace: true });
+      })
+      .catch((err) => setMessage(err));
   }
 
   const handleUpdateUser = (name, email) => {
     updateUser(name, email)
-    return(<Preloader />)
       .then((user) => setCurrentUser(user))
-      .catch((err) => console.log(err));
+      .catch((err) => setMessage(err));
   }
 
   const handleUserMovies = () => {
     getUserMovies()
       .then((saveMovies) => setSaveMovies(saveMovies))
-      .catch((err) => console.log(err));
+      .catch((err) => setMessage(err));
   }
 
   const handleLikeMovie = (movie) => {
@@ -101,19 +104,19 @@ export default function App() {
         if (!isSaveMovie(saveMovies, movie.id)) handleSaveMovie(movie);
         else handleDeleteMovie(getMyId(saveMovies, movie.id));
       })
-      .catch((err) => console.log(err))
+      .catch((err) => setMessage(err));
   }
 
   const handleSaveMovie = (movie) => {
     saveMovie(movie)
     .then(() => handleUserMovies())
-    .catch((err) => console.log(err));
+    .catch((err) => setMessage(err));
   }
 
   const handleDeleteMovie = (movieId) => {
     deleteMovie(movieId)
       .then(() => handleUserMovies())
-      .catch((err) => console.log(err));
+      .catch((err) => setMessage(err));
   }
 
   const isSaveMovie = (saveMovies, movieId) => {
@@ -172,8 +175,9 @@ export default function App() {
           } />
           <Route path='/signup' element={<Register  onRegister={handleRegisterUser} />} />
           <Route path='/signin' element={<Login onLogin={handleAuthorizedUser} />} />
-          <Route path='/not-found' element={<NotFound />} />
+          <Route path='/*' element={<NotFound />} />
         </Routes>
+        <InfoTooltip onClose={() => setMessage('')} message={message} />
       </div>
     </CurrentUserContext.Provider >
   )

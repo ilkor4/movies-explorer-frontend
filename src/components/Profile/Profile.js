@@ -11,28 +11,36 @@ export default function Profile(props) {
   const [userInfo, setUserInfo] = useState({
     name: currentUser.name,
     email: currentUser.email,
-  })
+  });
+  const [errors, setErrors] = useState([]);
+  const [isValid, setIsValid] = useState(false);
 
   const handleChange = (evt) => {
-    const { name, value } = evt.target;
+    const { name, value, validationMessage } = evt.target;
 
     setUserInfo({
       ...userInfo,
       [name]: value,
-    })
+    });
+
+    setErrors(validationMessage);
+
+    setIsValid(evt.target.closest('form').checkValidity());
   }
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-
-    console.log(userInfo)
 
     props.onUpdate(userInfo.name, userInfo.email);
 
     setUserInfo({
       name: currentUser.name,
       email: currentUser.value,
-    })
+    });
+
+    setErrors('');
+
+    setIsValid(false);
   }
 
   return(
@@ -48,8 +56,11 @@ export default function Profile(props) {
             <legend className='form__profile-title'>E-mail</legend>
             <input className='form__profile-input' onChange={handleChange} name="email" type="email" id="inputEmail" placeholder={ currentUser.email } required minLength="2" maxLength="30"></input>
           </div>
-          <p className='form__text-error'>Что-то пошло не так...</p>
-          <button className="form__profile-save-button" type="submit">Редактировать</button>
+          <p className='form__text-error'>{errors}</p>
+          { isValid
+            ? <button className="form__save-button" type="submit">Редактировать</button>
+            : <button className="form__save-button" disabled type="submit">Редактировать</button>
+          }
           <Link to="/signin" onClick={props.onSignout} className='form__profile-link'>Выйти из аккаунта </Link>
         </form>
       </div>

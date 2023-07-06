@@ -8,7 +8,6 @@ export default function MoviesCard(props) {
   }
 
   const countDuration = (duration) => {
-    console.log(props.card)
     if (((duration / 60) >= 1) && (duration % 60 === 0)) return `${Math.floor(duration / 60)}ч`;
     else if ((duration / 60) >= 1) return `${Math.floor(duration / 60)}ч${duration % 60}м`;
     else return `${duration}м`
