@@ -47,7 +47,7 @@ export default function App() {
         setMovies(movies);
         setSaveMovies(saveMovies);
       })
-      .catch((err) => console.log(err))
+      .catch((err) => setMessage(err.message));
     }
   }, [isLogged]);
 
@@ -58,13 +58,13 @@ export default function App() {
 
         setIsLogged(true);
       })
-      .catch((err) => setIsLogged(false));
+      .catch(() => setIsLogged(false));
   }
 
   const handleRegisterUser = (name, email, password) => {
     register(name, email, password)
       .then(() => handleAuthorizedUser(email, password))
-      .catch((err) => setMessage(err));
+      .catch((err) => setMessage(err.message));
   }
 
   const handleAuthorizedUser = (email, password) => {
@@ -74,7 +74,7 @@ export default function App() {
 
         navigate('/movies', { replace: true });
       })
-      .catch((err) => setMessage(err));
+      .catch((err) => setMessage(err.message));
   }
 
   const handleSignoutUser = () => {
@@ -88,14 +88,17 @@ export default function App() {
 
   const handleUpdateUser = (name, email) => {
     updateUser(name, email)
-      .then((user) => setCurrentUser(user))
+      .then((user) => {
+        setMessage('Данные пользователя успешно обновлены!')
+        setCurrentUser(user);
+      })
       .catch((err) => setMessage(err));
   }
 
   const handleUserMovies = () => {
     getUserMovies()
       .then((saveMovies) => setSaveMovies(saveMovies))
-      .catch((err) => setMessage(err));
+      .catch((err) => setMessage(err.message));
   }
 
   const handleLikeMovie = (movie) => {
@@ -104,7 +107,7 @@ export default function App() {
         if (!isSaveMovie(saveMovies, movie.id)) handleSaveMovie(movie);
         else handleDeleteMovie(getMyId(saveMovies, movie.id));
       })
-      .catch((err) => setMessage(err));
+      .catch((err) => setMessage(err.message));
   }
 
   const handleSaveMovie = (movie) => {

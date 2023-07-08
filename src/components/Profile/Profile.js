@@ -7,7 +7,6 @@ import '../Profile/Profile.css';
 export default function Profile(props) {
   const currentUser = useContext(CurrentUserContext);
 
-
   const [userInfo, setUserInfo] = useState({
     name: currentUser.name,
     email: currentUser.email,
@@ -57,7 +56,7 @@ export default function Profile(props) {
             <input className='form__profile-input' onChange={handleChange} name="email" type="email" id="inputEmail" placeholder={ currentUser.email } required minLength="2" maxLength="30"></input>
           </div>
           <p className='form__text-error'>{errors}</p>
-          { isValid
+          { (isValid && ((userInfo.email !== currentUser.email) || (userInfo.name !== currentUser.name)))
             ? <button className="form__save-button" type="submit">Редактировать</button>
             : <button className="form__save-button" disabled type="submit">Редактировать</button>
           }
