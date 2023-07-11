@@ -3,14 +3,12 @@ import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
 import { setToLocalStoradge, filterMovies, getFromLocalStoradge, filterDuration } from '../../utils/SearchMovies';
 
-import '../SearchForm/SearchForm.css';
-
-export default function SearchForm(props) {
-  const [search, setSearch] = useState( getFromLocalStoradge('search')
-    ? getFromLocalStoradge('search')
+export default function SearchSaveForm(props) {
+  const [search, setSearch] = useState( getFromLocalStoradge('saveSearch')
+    ? getFromLocalStoradge('saveSearch')
     : ''
     );
-  const [isShort, setIsShort] = useState(JSON.parse(getFromLocalStoradge('short')));
+  const [isShort, setIsShort] = useState(JSON.parse(getFromLocalStoradge('saveShort')));
   const [error, setError] = useState('');
   const [isValid, setIsValid] = useState(false);
 
@@ -27,18 +25,18 @@ export default function SearchForm(props) {
   const handleSubmit = (evt) => {
     evt.preventDefault();
 
-    setToLocalStoradge('movies', JSON.stringify(filterMovies(search.toLowerCase(), props.movies)));
-    setToLocalStoradge('search', search);
+    setToLocalStoradge('saveMovies', JSON.stringify(filterMovies(search.toLowerCase(), props.saveMovies)));
+    setToLocalStoradge('saveSearch', search);
 
-    props.changeUserMovies(JSON.parse(getFromLocalStoradge('movies')));
+    props.changeSaveUserMovies(JSON.parse(getFromLocalStoradge('saveMovies')));
   }
 
   const handleShortStatus = () => {
-    setToLocalStoradge('short', !isShort);
+    setToLocalStoradge('saveShort', !isShort);
     setIsShort(!isShort);
 
-    if (!isShort) props.changeUserMovies(filterDuration(JSON.parse(getFromLocalStoradge('movies'))));
-    else props.changeUserMovies(JSON.parse(getFromLocalStoradge('movies')));
+    if (!isShort) props.changeSaveUserMovies(filterDuration(JSON.parse(getFromLocalStoradge('saveMovies'))));
+    else props.changeSaveUserMovies(JSON.parse(getFromLocalStoradge('saveMovies')));
   }
 
 

@@ -23,6 +23,7 @@ import {
   saveMovie,
   deleteMovie,
 } from '../../utils/MainApi';
+import { getFromLocalStoradge, filterDuration, setToLocalStoradge, filterMovies } from '../../utils/SearchMovies';
 import { getMovies } from '../../utils/MoviesApi';
 
 import '../App/App.css';
@@ -30,9 +31,18 @@ import '../App/App.css';
 export default function App() {
   const [currentUser, setCurrentUser] = React.useState(null);
   const [isLogged, setIsLogged] = React.useState(false);
+  const [isPreloaderOpen, setIsPreloaderOpen] = React.useState(false);
   const [isBurgerOpen, setIsBurgerOpen] = React.useState(false);
   const [movies, setMovies] = React.useState([]);
   const [saveMovies, setSaveMovies] = React.useState([]);
+  const [userMovies, setUserMovies] = React.useState(JSON.parse(getFromLocalStoradge('short'))
+    ? filterDuration(JSON.parse(getFromLocalStoradge('movies')))
+    : JSON.parse(getFromLocalStoradge('movies'))
+  );
+  const [saveUserMovies, setSaveUserMovies] = React.useState(JSON.parse(getFromLocalStoradge('saveShort'))
+  ? filterDuration(JSON.parse(getFromLocalStoradge('saveMovies')))
+  : JSON.parse(getFromLocalStoradge('saveMovies'))
+);
   const [message, setMessage] = React.useState('');
   const navigate = useNavigate();
 
@@ -47,7 +57,7 @@ export default function App() {
         setMovies(movies);
         setSaveMovies(saveMovies);
       })
-      .catch((err) => setMessage(err.message));
+      .catch((err) => console.log(err));
     }
   }, [isLogged]);
 
@@ -97,7 +107,13 @@ export default function App() {
 
   const handleUserMovies = () => {
     getUserMovies()
-      .then((saveMovies) => setSaveMovies(saveMovies))
+      .then((saveMovies) => {
+        setSaveMovies(saveMovies);
+
+        setToLocalStoradge('saveMovies', JSON.stringify(filterMovies(getFromLocalStoradge('search'), saveMovies)));
+
+        setSaveUserMovies(JSON.parse(getFromLocalStoradge('saveMovies')));
+      })
       .catch((err) => setMessage(err.message));
   }
 
@@ -118,7 +134,9 @@ export default function App() {
 
   const handleDeleteMovie = (movieId) => {
     deleteMovie(movieId)
-      .then(() => handleUserMovies())
+      .then(() => {
+        handleUserMovies();
+      })
       .catch((err) => setMessage(err));
   }
 
@@ -151,7 +169,7 @@ export default function App() {
             <ProtectedRoute isLogged={isLogged} element={
               <>
                 <HeaderLanding onBurgerClick= {() => setIsBurgerOpen(true)} />
-                <Movies isMain={true} movies={movies} saveMovies={saveMovies} onLike={handleLikeMovie}/>
+                <Movies isMain={true} movies={movies} saveMovies={saveMovies} userMovies={userMovies} changeUserMovies={setUserMovies} onLike={handleLikeMovie} isOpen={isPreloaderOpen}  />
                 <Footer />
                 <Burger onClose= {() => setIsBurgerOpen(false)} isBurgerOpen={isBurgerOpen}/>
               </>
@@ -161,7 +179,7 @@ export default function App() {
             <ProtectedRoute isLogged={isLogged} element={
               <>
                 <HeaderLanding onBurgerClick= {() => setIsBurgerOpen(true)} />
-                <Movies isMain={false} movies={saveMovies} saveMovies={saveMovies} onDelete={handleDeleteMovie}/>
+                <Movies isMain={false} movies={saveMovies} saveMovies={saveMovies} saveUserMovies={saveUserMovies} changeSaveUserMovies={setSaveUserMovies} onDelete={handleDeleteMovie} isOpen={isPreloaderOpen} />
                 <Footer />
                 <Burger onClose= {() => setIsBurgerOpen(false)} isBurgerOpen={isBurgerOpen} />
               </>

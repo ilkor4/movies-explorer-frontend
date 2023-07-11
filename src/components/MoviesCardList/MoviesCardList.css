@@ -10,6 +10,12 @@
   gap: 80px;
 }
 
+.cards_disabled {
+  height: 50vh;
+  width: 100%;
+  background-color: var(--bg-color);
+}
+
 .cards__list {
   margin: 0;
   padding: 0;
@@ -42,6 +48,12 @@
 .cards__add-button_disabled {
   padding: 0;
   display: none;
+}
+
+.cards__title {
+  padding: 50px 0;
+  color: var(--text-color);
+  font-size: 20px;
 }
 
 @media screen and (max-width: 1270px){

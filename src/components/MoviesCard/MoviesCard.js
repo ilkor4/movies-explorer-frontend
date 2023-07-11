@@ -3,9 +3,7 @@ import { Link } from 'react-router-dom';
 import '../MoviesCard/MoviesCard.css';
 
 export default function MoviesCard(props) {
-  const isLiked = () => {
-    return props.saveMovies.some((movie) => movie.movieId === props.card.id);
-  }
+  const isLiked = () => props.saveMovies.some((movie) => movie.movieId === props.card.id);
 
   const countDuration = (duration) => {
     if (((duration / 60) >= 1) && (duration % 60 === 0)) return `${Math.floor(duration / 60)}ч`;

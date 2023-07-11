@@ -8,17 +8,24 @@ export default function MoviesCardList(props) {
     : 'cards__add-button cards__add-button_disabled';
 
   return(
-    <section className='cards' aria-label='Секция с карточками фильмов'>
-      <ul className='cards__list'>
-        {props.movies.map((item, index) => {
-          return(
-            <li key={index}>
-              <MoviesCard  card={item} saveMovies={props.saveMovies} isMain={props.isMain} onLike={props.onLike} onDelete={props.onDelete}/>
-            </li>
-          )}
-          )}
-      </ul>
-      <button className={buttonClassName} type='button'>Ещё</button>
-    </section>
+    props.movies
+      ? <section className='cards' aria-label='Секция с карточками фильмов'>
+          {props.movies.length !== 0
+            ? <>
+                <ul className='cards__list'>
+                  {props.movies.map((item) => {
+                  return(
+                    <li key={item._id}>
+                      <MoviesCard card={item} saveMovies={props.saveMovies} isMain={props.isMain} onLike={props.onLike} onDelete={props.onDelete} />
+                    </li>
+                  )}
+                  )}
+                </ul>
+                <button className={buttonClassName} type='button' onClick={() => console.log(props.movies)}>Ещё</button>
+              </>
+            : <h2 className='cards__title'>Ничего не найдено</h2>
+          }
+        </section>
+      : <section className='cards_disabled'></section>
   )
 }
