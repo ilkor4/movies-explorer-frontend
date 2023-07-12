@@ -24,7 +24,6 @@ import {
   deleteMovie,
 } from '../../utils/MainApi';
 import { getFromLocalStoradge, filterDuration, setToLocalStoradge, filterMovies } from '../../utils/SearchMovies';
-import { getMovies } from '../../utils/MoviesApi';
 
 import '../App/App.css';
 
@@ -33,7 +32,7 @@ export default function App() {
   const [isLogged, setIsLogged] = React.useState(false);
   const [isPreloaderOpen, setIsPreloaderOpen] = React.useState(false);
   const [isBurgerOpen, setIsBurgerOpen] = React.useState(false);
-  const [movies, setMovies] = React.useState([]);
+  const [movies, setMovies] = React.useState(JSON.parse(getFromLocalStoradge('initialMovies')));
   const [saveMovies, setSaveMovies] = React.useState([]);
   const [userMovies, setUserMovies] = React.useState(JSON.parse(getFromLocalStoradge('short'))
     ? filterDuration(JSON.parse(getFromLocalStoradge('movies')))
@@ -51,14 +50,7 @@ export default function App() {
   }, [isLogged]);
 
   React.useEffect(() => {
-    if (isLogged) {
-      Promise.all([getMovies(), getUserMovies()])
-      .then(([movies, saveMovies]) => {
-        setMovies(movies);
-        setSaveMovies(saveMovies);
-      })
-      .catch((err) => console.log(err));
-    }
+    if (isLogged) handleUserMovies();
   }, [isLogged]);
 
   const handleCheckToken = () => {
@@ -110,7 +102,9 @@ export default function App() {
       .then((saveMovies) => {
         setSaveMovies(saveMovies);
 
-        setToLocalStoradge('saveMovies', JSON.stringify(filterMovies(getFromLocalStoradge('search'), saveMovies)));
+        if (!getFromLocalStoradge('search')) {
+          setToLocalStoradge('saveMovies', JSON.stringify(saveMovies));
+        } else setToLocalStoradge('saveMovies', JSON.stringify(filterMovies(getFromLocalStoradge('search'), saveMovies)));
 
         setSaveUserMovies(JSON.parse(getFromLocalStoradge('saveMovies')));
       })
@@ -169,7 +163,7 @@ export default function App() {
             <ProtectedRoute isLogged={isLogged} element={
               <>
                 <HeaderLanding onBurgerClick= {() => setIsBurgerOpen(true)} />
-                <Movies isMain={true} movies={movies} saveMovies={saveMovies} userMovies={userMovies} changeUserMovies={setUserMovies} onLike={handleLikeMovie} isOpen={isPreloaderOpen}  />
+                <Movies isMain={true} movies={movies} openPreloader={setIsPreloaderOpen} saveMovies={saveMovies} userMovies={userMovies} setMovies={setMovies} changeUserMovies={setUserMovies} onLike={handleLikeMovie} isOpen={isPreloaderOpen}  />
                 <Footer />
                 <Burger onClose= {() => setIsBurgerOpen(false)} isBurgerOpen={isBurgerOpen}/>
               </>

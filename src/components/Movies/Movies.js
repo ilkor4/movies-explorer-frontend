@@ -9,7 +9,7 @@ export default function Movies(props) {
     <main className='movies'>
       <>
         {props.isMain
-        ? <SearchForm movies={props.movies} userMovies={props.userMovies} changeUserMovies={props.changeUserMovies}/>
+        ? <SearchForm movies={props.movies} userMovies={props.userMovies} setMovies={props.setMovies} changeUserMovies={props.changeUserMovies} openPreloader={props.openPreloader}/>
         : <SearchSaveForm saveMovies={props.saveMovies} saveUserMovies={props.saveUserMovies} changeSaveUserMovies={props.changeSaveUserMovies} />
         }
         <Preloader isOpen={props.isOpen} />

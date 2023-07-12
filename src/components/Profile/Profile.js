@@ -49,7 +49,7 @@ export default function Profile(props) {
         <form className='profile__form' onSubmit={handleSubmit}>
           <div className='form__input-container'>
             <legend className='form__profile-title'>Имя</legend>
-            <input className='form__profile-input' onChange={handleChange} name="name" type="text" id="inputName" placeholder={ currentUser.name } required minLength="2" maxLength="30"></input>
+            <input className='form__profile-input' onChange={handleChange} name="name" pattern='[a-zA-Zа-яА-ЯёЁ \-]{1,30}' type="text" id="inputName" placeholder={ currentUser.name } required minLength="2" maxLength="30"></input>
           </div>
           <div className='form__input-container form__input-container_type_email'>
             <legend className='form__profile-title'>E-mail</legend>

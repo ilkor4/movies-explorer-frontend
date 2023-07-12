@@ -51,7 +51,7 @@ export default function Register(props) {
         <h1 className='register__title'>Добро пожаловать!</h1>
         <form className='register__form' onSubmit={handleSubmit}>
           <legend className='form__title'>Имя</legend>
-          <input className='form__input' onChange={handleChange} name="name" type="text" id="inputName" required minLength="2" maxLength="30"></input>
+          <input className='form__input' onChange={handleChange} pattern='[a-zA-Zа-яА-ЯёЁ \-]{1,30}'  name="name" type="text" id="inputName" required></input>
           <legend className='form__title'>E-mail</legend>
           <input className='form__input' onChange={handleChange} name="email" type="email" id="inputEmail" required minLength="2" maxLength="30"></input>
           <legend className='form__title'>Пароль</legend>

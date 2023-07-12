@@ -50,7 +50,7 @@ export default function SearchSaveForm(props) {
           : <button type='submit' disabled className='searchForm__button'></button>
           }
         </div>
-        <FilterCheckbox isShort={isShort} onShortClick={handleShortStatus} />
+        <FilterCheckbox isShort={isShort} isSave={true} onShortClick={handleShortStatus} />
       </form>
       {error && <p className='searchForm__error'>{error}</p>}
     </section>

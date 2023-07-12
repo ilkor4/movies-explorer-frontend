@@ -2,6 +2,7 @@ import { useState } from 'react';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
 import { setToLocalStoradge, filterMovies, getFromLocalStoradge, filterDuration } from '../../utils/SearchMovies';
+import { getMovies } from '../../utils/MoviesApi';
 
 import '../SearchForm/SearchForm.css';
 
@@ -24,13 +25,29 @@ export default function SearchForm(props) {
     setIsValid(evt.target.closest('form').checkValidity());
   }
 
-  const handleSubmit = (evt) => {
+  async function handleSubmit(evt) {
     evt.preventDefault();
+    console.log(props.movies)
+    if (!props.movies) { try {
+      props.openPreloader(true)
+      const movies  = await getMovies();
+      props.openPreloader(false);
+      props.setMovies(movies);
 
-    setToLocalStoradge('movies', JSON.stringify(filterMovies(search.toLowerCase(), props.movies)));
-    setToLocalStoradge('search', search);
+      setToLocalStoradge('initialMovies', JSON.stringify(movies));
+      setToLocalStoradge('movies', JSON.stringify(filterMovies(search.toLowerCase(), movies)));
+      setToLocalStoradge('search', search);
 
-    props.changeUserMovies(JSON.parse(getFromLocalStoradge('movies')));
+      props.changeUserMovies(JSON.parse(getFromLocalStoradge('movies')));
+      } catch(err) {
+      console.log(err);
+      }
+    } else {
+      setToLocalStoradge('movies', JSON.stringify(filterMovies(search.toLowerCase(), props.movies)));
+      setToLocalStoradge('search', search);
+
+      props.changeUserMovies(JSON.parse(getFromLocalStoradge('movies')));
+    }
   }
 
   const handleShortStatus = () => {
@@ -52,7 +69,7 @@ export default function SearchForm(props) {
           : <button type='submit' disabled className='searchForm__button'></button>
           }
         </div>
-        <FilterCheckbox isShort={isShort} onShortClick={handleShortStatus} />
+        <FilterCheckbox isShort={isShort} isSave={false} onShortClick={handleShortStatus} />
       </form>
       {error && <p className='searchForm__error'>{error}</p>}
     </section>
