@@ -9,14 +9,14 @@ export default function Movies(props) {
     <main className='movies'>
       <>
         {props.isMain
-        ? <SearchForm movies={props.movies} userMovies={props.userMovies} setMovies={props.setMovies} changeUserMovies={props.changeUserMovies} openPreloader={props.openPreloader}/>
+        ? <SearchForm movies={props.movies} userMovies={props.userMovies} setMovies={props.setMovies} changeUserMovies={props.changeUserMovies} openPreloader={props.openPreloader} setMessage={props.setMessage}/>
         : <SearchSaveForm saveMovies={props.saveMovies} saveUserMovies={props.saveUserMovies} changeSaveUserMovies={props.changeSaveUserMovies} />
         }
         <Preloader isOpen={props.isOpen} />
         <MoviesCardList isMain={props.isMain} movies={props.isMain
           ? props.userMovies
           : props.saveUserMovies
-          } saveMovies={props.saveMovies} saveUserMovies={props.saveUserMovies} onLike={props.onLike} onDelete={props.onDelete} isOpen={props.isOpen} />
+          } saveMovies={props.saveMovies} saveUserMovies={props.saveUserMovies} onLike={props.onLike} onDelete={props.onDelete} isOpen={props.isOpen}  onAddCards={props.onAddCards} optionalMovies={props.optionalMovies} setOptionalMovies={props.setOptionalMovies}/>
       </>
     </main>
   )

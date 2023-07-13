@@ -15,13 +15,16 @@ export default function MoviesCardList(props) {
                 <ul className='cards__list'>
                   {props.movies.map((item) => {
                   return(
-                    <li key={item._id}>
+                    <li key={props.isMain
+                      ? item.id
+                      : item._id
+                    }>
                       <MoviesCard card={item} saveMovies={props.saveMovies} isMain={props.isMain} onLike={props.onLike} onDelete={props.onDelete} />
                     </li>
                   )}
                   )}
                 </ul>
-                <button className={buttonClassName} type='button' onClick={() => console.log(props.movies)}>Ещё</button>
+                {props.optionalMovies && <button className={buttonClassName} type='button' onClick={() => props.onAddCards()}>Ещё</button>}
               </>
             : <h2 className='cards__title'>Ничего не найдено</h2>
           }

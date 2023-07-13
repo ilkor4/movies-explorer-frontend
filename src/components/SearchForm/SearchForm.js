@@ -3,6 +3,7 @@ import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
 import { setToLocalStoradge, filterMovies, getFromLocalStoradge, filterDuration } from '../../utils/SearchMovies';
 import { getMovies } from '../../utils/MoviesApi';
+import { renderCards, renderOptional } from '../../utils/WindowResize';
 
 import '../SearchForm/SearchForm.css';
 
@@ -38,15 +39,17 @@ export default function SearchForm(props) {
       setToLocalStoradge('movies', JSON.stringify(filterMovies(search.toLowerCase(), movies)));
       setToLocalStoradge('search', search);
 
-      props.changeUserMovies(JSON.parse(getFromLocalStoradge('movies')));
-      } catch(err) {
-      console.log(err);
-      }
+      props.changeUserMovies(renderCards(window.innerWidth, JSON.parse(getFromLocalStoradge('movies'))));
+      props.setOptionalMovies(renderOptional(window.innerWidth, JSON.parse(getFromLocalStoradge('movies'))));
+    } catch(err) {
+        props.openPreloader(false);
+        props.setMessage('Во время запроса произошла ошибка.');
+    }
     } else {
       setToLocalStoradge('movies', JSON.stringify(filterMovies(search.toLowerCase(), props.movies)));
       setToLocalStoradge('search', search);
 
-      props.changeUserMovies(JSON.parse(getFromLocalStoradge('movies')));
+      props.changeUserMovies(renderCards(window.innerWidth, JSON.parse(getFromLocalStoradge('movies'))));
     }
   }
 
