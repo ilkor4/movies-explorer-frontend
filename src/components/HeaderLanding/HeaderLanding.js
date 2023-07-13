@@ -6,7 +6,7 @@ import '../HeaderLanding/HeaderLanding.css';
 
 export default function HeaderLanding(props) {
   return(
-    <header className='header-landing'>
+    <header className={props.isMain ? 'header-landing header-landing_type_main' : 'header-landing'}>
       <Link to='/'><img src={headerImage} className='header-landing__logo' alt='Логотип сайта'/></Link>
       <Navigation />
       <Link className='header-landing__link' to='/profile'>

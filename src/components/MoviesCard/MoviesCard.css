@@ -10,6 +10,16 @@
   overflow: hidden;
 }
 
+.card__link {
+  display: flex;
+  text-decoration: none;
+  transition: .7s ease;
+}
+
+.card__link:hover {
+  opacity: .7;
+}
+
 .card__image {
   width: 100%;
   height: 147px;
