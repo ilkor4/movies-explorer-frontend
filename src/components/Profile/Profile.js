@@ -49,16 +49,16 @@ export default function Profile(props) {
         <form className='profile__form' onSubmit={handleSubmit}>
           <div className='form__input-container'>
             <legend className='form__profile-title'>Имя</legend>
-            <input className='form__profile-input' onChange={handleChange} name="name" pattern='[a-zA-Zа-яА-ЯёЁ \-]{1,30}' type="text" id="inputName" placeholder={ currentUser.name } required minLength="2" maxLength="30"></input>
+            <input className='form__profile-input' onChange={handleChange} name="name" pattern='[a-zA-Zа-яА-ЯёЁ \-]{1,30}' type="text" id="inputName" value={ userInfo.name } required minLength="2" maxLength="30"></input>
           </div>
           <div className='form__input-container form__input-container_type_email'>
             <legend className='form__profile-title'>E-mail</legend>
-            <input className='form__profile-input' onChange={handleChange} name="email" type="email" id="inputEmail" placeholder={ currentUser.email } required minLength="2" maxLength="30"></input>
+            <input className='form__profile-input' onChange={handleChange} name="email" type="email" id="inputEmail" value={ userInfo.email } required minLength="2" maxLength="30"></input>
           </div>
           <p className='form__text-error'>{errors}</p>
           { (isValid && ((userInfo.email !== currentUser.email) || (userInfo.name !== currentUser.name)))
-            ? <button className="form__save-button" type="submit">Редактировать</button>
-            : <button className="form__save-button" disabled type="submit">Редактировать</button>
+            ? <button className="form__profile-save-button" type="submit">Редактировать</button>
+            : <button className="form__profile-save-button" disabled type="submit">Редактировать</button>
           }
           <Link to="/signin" onClick={props.onSignout} className='form__profile-link'>Выйти из аккаунта </Link>
         </form>

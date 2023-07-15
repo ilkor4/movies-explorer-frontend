@@ -113,7 +113,7 @@ export default function App() {
         setUserMovies([]);
         setOptionalMovies([]);
       })
-      .catch((err) => setMessage(err));
+      .catch((err) => setMessage(err.message));
   }
 
   const handleUpdateUser = (name, email) => {
@@ -122,7 +122,7 @@ export default function App() {
         setMessage('Данные пользователя успешно обновлены!')
         setCurrentUser(user);
       })
-      .catch((err) => setMessage(err));
+      .catch((err) => setMessage(err.message));
   }
 
   const handleUserMovies = () => {
