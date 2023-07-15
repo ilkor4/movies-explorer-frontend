@@ -23,6 +23,11 @@
   height: 38px;
   object-fit: contain;
   align-self: flex-start;
+  transition: .7s ease;
+}
+
+.register__logo:hover {
+  opacity: .7;
 }
 
 .register__title {

@@ -43,7 +43,7 @@ export default function Login(props) {
   return(
     <main className='register'>
       <div className='register__container'>
-        <img src={logoImage} alt='Логотип сайта' className='register__logo'/>
+        <Link to='/' className='register__logo'><img src={logoImage} alt="Логотип сайта" className='register__logo'/></Link>
         <h1 className='register__title'>Рады видеть!</h1>
         <form className='register__form' onSubmit={handleSubmit}>
           <legend className='form__title'>E-mail</legend>

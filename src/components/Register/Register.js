@@ -47,7 +47,7 @@ export default function Register(props) {
   return(
     <main className='register'>
       <div className='register__container'>
-        <img src={logoImage} alt='Логотип сайта' className='register__logo'/>
+        <Link to='/' className='register__logo'><img src={logoImage} alt="Логотип сайта" className='register__logo'/></Link>
         <h1 className='register__title'>Добро пожаловать!</h1>
         <form className='register__form' onSubmit={handleSubmit}>
           <legend className='form__title'>Имя</legend>
