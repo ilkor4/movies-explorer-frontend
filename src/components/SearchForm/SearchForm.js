@@ -29,7 +29,7 @@ export default function SearchForm(props) {
   async function handleSubmit(evt) {
     evt.preventDefault();
 
-    if (!props.movies) { try {
+    if (!props.movies || props.movies.length === 0) { try {
       props.openPreloader(true)
 
       const movies  = await getMovies();
