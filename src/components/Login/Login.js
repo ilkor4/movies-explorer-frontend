@@ -30,11 +30,6 @@ export default function Login(props) {
 
     props.onLogin(userInfo.email, userInfo.password);
 
-    setUserInfo({
-      email: '',
-      password: '',
-    });
-
     setErrors('');
 
     setIsValid(false);

@@ -31,13 +31,7 @@ export default function Register(props) {
   const handleSubmit = (evt) => {
     evt.preventDefault();
 
-    props.onRegister(userInfo.name, userInfo.email, userInfo.password);
-
-    setUserInfo({
-      name: '',
-      email: '',
-      password: '',
-    });
+    props.onRegister(userInfo.name, userInfo.email, userInfo.password)
 
     setErrors('');
 
