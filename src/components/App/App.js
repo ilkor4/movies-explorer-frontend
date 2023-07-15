@@ -55,15 +55,6 @@ export default function App() {
     if (isLogged) handleUserMovies();
   }, [isLogged]);
 
-  React.useEffect(() => {
-    let timeout = null;
-    window.addEventListener('resize', resizeChange);
-    return () => {
-      clearTimeout(timeout);
-      window.removeEventListener('resize', resizeChange);
-    }
-  })
-
   const handleCheckToken = () => {
     checkToken()
       .then((user) => {
@@ -150,16 +141,6 @@ export default function App() {
         handleUserMovies();
       })
       .catch((err) => setMessage(err));
-  }
-  const resizeChange = () => {
-    setWindowSize(window.innerWidth);
-    if (JSON.parse(getFromLocalStoradge('short'))) {
-      setUserMovies(filterDuration(renderCards(windowSize, JSON.parse(getFromLocalStoradge('movies')))));
-      setOptionalMovies(filterDuration(optionalCards(windowSize, JSON.parse(getFromLocalStoradge('movies')))));
-    } else {
-      setUserMovies(renderCards(windowSize, JSON.parse(getFromLocalStoradge('movies'))));
-      setOptionalMovies(optionalCards(windowSize, JSON.parse(getFromLocalStoradge('movies'))));
-    }
   }
 
   const handleOptionalCards = () => {
