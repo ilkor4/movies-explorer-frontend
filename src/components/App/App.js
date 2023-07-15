@@ -98,7 +98,20 @@ export default function App() {
     signOut()
       .then(() => {
         setIsLogged(false);
+
         navigate('/', { replace: true });
+
+        localStorage.removeItem('short');
+        localStorage.removeItem('initialMovies');
+        localStorage.removeItem('saveShort');
+        localStorage.removeItem('search');
+        localStorage.removeItem('movies');
+
+        setMovies([]);
+        setSaveMovies([]);
+        setSaveUserMovies([]);
+        setUserMovies([]);
+        setOptionalMovies([]);
       })
       .catch((err) => setMessage(err));
   }
