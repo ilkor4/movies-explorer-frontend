@@ -3,7 +3,7 @@ import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
 import { setToLocalStoradge, filterMovies, getFromLocalStoradge, filterDuration } from '../../utils/SearchMovies';
 import { getMovies } from '../../utils/MoviesApi';
-import { renderCards, renderOptional } from '../../utils/WindowResize';
+import { renderCards, optionalCards } from '../../utils/WindowResize';
 
 import '../SearchForm/SearchForm.css';
 
@@ -28,10 +28,12 @@ export default function SearchForm(props) {
 
   async function handleSubmit(evt) {
     evt.preventDefault();
-    console.log(props.movies)
+
     if (!props.movies) { try {
       props.openPreloader(true)
+
       const movies  = await getMovies();
+
       props.openPreloader(false);
       props.setMovies(movies);
 
@@ -40,25 +42,34 @@ export default function SearchForm(props) {
       setToLocalStoradge('search', search);
 
       props.changeUserMovies(renderCards(window.innerWidth, JSON.parse(getFromLocalStoradge('movies'))));
-      props.setOptionalMovies(renderOptional(window.innerWidth, JSON.parse(getFromLocalStoradge('movies'))));
+      props.setOptionalMovies(optionalCards(window.innerWidth, JSON.parse(getFromLocalStoradge('movies'))));
     } catch(err) {
         props.openPreloader(false);
         props.setMessage('Во время запроса произошла ошибка.');
     }
     } else {
-      setToLocalStoradge('movies', JSON.stringify(filterMovies(search.toLowerCase(), props.movies)));
+      setToLocalStoradge('movies', JSON.stringify(filterMovies(search.toLowerCase(), JSON.parse(getFromLocalStoradge('initialMovies')))));
       setToLocalStoradge('search', search);
 
       props.changeUserMovies(renderCards(window.innerWidth, JSON.parse(getFromLocalStoradge('movies'))));
+      props.setOptionalMovies(optionalCards(window.innerWidth, JSON.parse(getFromLocalStoradge('movies'))));
     }
+
+    console.log(props.userMovies);
+    console.log(props.optionalMovies);
   }
 
   const handleShortStatus = () => {
     setToLocalStoradge('short', !isShort);
     setIsShort(!isShort);
 
-    if (!isShort) props.changeUserMovies(filterDuration(JSON.parse(getFromLocalStoradge('movies'))));
-    else props.changeUserMovies(JSON.parse(getFromLocalStoradge('movies')));
+    if (!isShort) {
+      props.changeUserMovies(renderCards(window.innerWidth, filterDuration(JSON.parse(getFromLocalStoradge('movies')))));
+      props.setOptionalMovies(optionalCards(window.innerWidth, filterDuration(JSON.parse(getFromLocalStoradge('movies')))));
+    } else {
+      props.changeUserMovies(renderCards(window.innerWidth, JSON.parse(getFromLocalStoradge('movies'))));
+      props.setOptionalMovies(optionalCards(window.innerWidth, JSON.parse(getFromLocalStoradge('movies'))));
+  }
   }
 
 

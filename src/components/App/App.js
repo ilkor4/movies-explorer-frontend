@@ -37,11 +37,11 @@ export default function App() {
   const [movies, setMovies] = React.useState(JSON.parse(getFromLocalStoradge('initialMovies')));
   const [saveMovies, setSaveMovies] = React.useState([]);
   const [userMovies, setUserMovies] = React.useState(JSON.parse(getFromLocalStoradge('short'))
-    ? renderCards(filterDuration(JSON.parse(getFromLocalStoradge('movies'))))
+    ? renderCards(windowSize, filterDuration(JSON.parse(getFromLocalStoradge('movies'))))
     : renderCards(windowSize, JSON.parse(getFromLocalStoradge('movies')))
   );
   const [optionalMovies, setOptionalMovies] = React.useState(JSON.parse(getFromLocalStoradge('short'))
-  ? optionalCards(filterDuration(JSON.parse(getFromLocalStoradge('movies'))))
+  ? optionalCards(windowSize, filterDuration(JSON.parse(getFromLocalStoradge('movies'))))
   : optionalCards(windowSize, JSON.parse(getFromLocalStoradge('movies')))
 );
   const [message, setMessage] = React.useState('');
@@ -94,8 +94,10 @@ export default function App() {
     signOut()
       .then(() => {
         setIsLogged(false);
-
-        navigate('/', { replace: true });
+        setMovies([]);
+        setSaveMovies([]);
+        setUserMovies([]);
+        setOptionalMovies([]);
 
         localStorage.removeItem('short');
         localStorage.removeItem('initialMovies');
@@ -104,10 +106,7 @@ export default function App() {
         localStorage.removeItem('movies');
         localStorage.removeItem('saveMovies');
 
-        setMovies([]);
-        setSaveMovies([]);
-        setUserMovies([]);
-        setOptionalMovies([]);
+        navigate('/', { replace: true });
       })
       .catch((err) => setMessage(err.message));
   }
@@ -154,8 +153,13 @@ export default function App() {
   }
   const resizeChange = () => {
     setWindowSize(window.innerWidth);
-    setUserMovies(renderCards(windowSize, JSON.parse(getFromLocalStoradge('movies'))));
-    setOptionalMovies(optionalCards(windowSize, JSON.parse(getFromLocalStoradge('movies'))));
+    if (JSON.parse(getFromLocalStoradge('short'))) {
+      setUserMovies(filterDuration(renderCards(windowSize, JSON.parse(getFromLocalStoradge('movies')))));
+      setOptionalMovies(filterDuration(optionalCards(windowSize, JSON.parse(getFromLocalStoradge('movies')))));
+    } else {
+      setUserMovies(renderCards(windowSize, JSON.parse(getFromLocalStoradge('movies'))));
+      setOptionalMovies(optionalCards(windowSize, JSON.parse(getFromLocalStoradge('movies'))));
+    }
   }
 
   const handleOptionalCards = () => {
@@ -193,7 +197,7 @@ export default function App() {
             <ProtectedRoute isLogged={isLogged} element={
               <>
                 <HeaderLanding onBurgerClick= {() => setIsBurgerOpen(true)} />
-                <Movies isMain={true} movies={movies} openPreloader={setIsPreloaderOpen} saveMovies={saveMovies} userMovies={userMovies} setMovies={setMovies} changeUserMovies={setUserMovies} onLike={handleLikeMovie} onAddCards={handleOptionalCards} isOpen={isPreloaderOpen} setMessage={setMessage} optionalMovies={optionalMovies} setOptionalMovies={setOptionalMovies}/>
+                <Movies isMain={true} movies={movies} openPreloader={setIsPreloaderOpen} saveMovies={saveMovies} userMovies={userMovies} setMovies={setMovies} changeUserMovies={setUserMovies} onLike={handleLikeMovie} onAddCards={handleOptionalCards} isOpen={isPreloaderOpen} setMessage={setMessage} optionalMovies={optionalMovies} setOptionalMovies={setOptionalMovies} />
                 <Footer />
                 <Burger onClose= {() => setIsBurgerOpen(false)} isBurgerOpen={isBurgerOpen}/>
               </>

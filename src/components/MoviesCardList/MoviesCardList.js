@@ -24,7 +24,10 @@ export default function MoviesCardList(props) {
                   )}
                   )}
                 </ul>
-                {props.optionalMovies && <button className={buttonClassName} type='button' onClick={() => props.onAddCards()}>Ещё</button>}
+                {props.isMain
+                ? props.optionalMovies.length > 0  && <button className={buttonClassName} type='button' onClick={() => props.onAddCards()}>Ещё</button>
+                : ''
+                }
               </>
             : <h2 className='cards__title'>Ничего не найдено</h2>
           }
