@@ -23,7 +23,7 @@ import {
   saveMovie,
   deleteMovie,
 } from '../../utils/MainApi';
-import { getFromLocalStoradge, filterDuration, setToLocalStoradge, filterMovies } from '../../utils/SearchMovies';
+import { getFromLocalStoradge, filterDuration, setToLocalStoradge } from '../../utils/SearchMovies';
 import { renderCards, optionalCards, changeOptional, renderOptional } from '../../utils/WindowResize';
 
 import '../App/App.css';
@@ -39,10 +39,6 @@ export default function App() {
   const [userMovies, setUserMovies] = React.useState(JSON.parse(getFromLocalStoradge('short'))
     ? renderCards(filterDuration(JSON.parse(getFromLocalStoradge('movies'))))
     : renderCards(windowSize, JSON.parse(getFromLocalStoradge('movies')))
-  );
-  const [saveUserMovies, setSaveUserMovies] = React.useState(JSON.parse(getFromLocalStoradge('saveShort'))
-  ? filterDuration(JSON.parse(getFromLocalStoradge('saveMovies')))
-  : JSON.parse(getFromLocalStoradge('saveMovies'))
   );
   const [optionalMovies, setOptionalMovies] = React.useState(JSON.parse(getFromLocalStoradge('short'))
   ? optionalCards(filterDuration(JSON.parse(getFromLocalStoradge('movies'))))
@@ -106,10 +102,10 @@ export default function App() {
         localStorage.removeItem('saveShort');
         localStorage.removeItem('search');
         localStorage.removeItem('movies');
+        localStorage.removeItem('saveMovies');
 
         setMovies([]);
         setSaveMovies([]);
-        setSaveUserMovies([]);
         setUserMovies([]);
         setOptionalMovies([]);
       })
@@ -129,12 +125,7 @@ export default function App() {
     getUserMovies()
       .then((saveMovies) => {
         setSaveMovies(saveMovies);
-
-        if (!getFromLocalStoradge('search')) {
-          setToLocalStoradge('saveMovies', JSON.stringify(saveMovies));
-        } else setToLocalStoradge('saveMovies', JSON.stringify(filterMovies(getFromLocalStoradge('search'), saveMovies)));
-
-        setSaveUserMovies(JSON.parse(getFromLocalStoradge('saveMovies')));
+        setToLocalStoradge('saveMovies', JSON.stringify(saveMovies));
       })
       .catch((err) => setMessage(err.message));
   }
@@ -212,7 +203,7 @@ export default function App() {
             <ProtectedRoute isLogged={isLogged} element={
               <>
                 <HeaderLanding onBurgerClick= {() => setIsBurgerOpen(true)} />
-                <Movies isMain={false} movies={saveMovies} saveMovies={saveMovies} saveUserMovies={saveUserMovies} changeSaveUserMovies={setSaveUserMovies} onDelete={handleDeleteMovie} isOpen={isPreloaderOpen} />
+                <Movies isMain={false} movies={saveMovies} saveMovies={saveMovies} changeSaveMovies={setSaveMovies} onDelete={handleDeleteMovie} isOpen={isPreloaderOpen} />
                 <Footer />
                 <Burger onClose= {() => setIsBurgerOpen(false)} isBurgerOpen={isBurgerOpen} />
               </>

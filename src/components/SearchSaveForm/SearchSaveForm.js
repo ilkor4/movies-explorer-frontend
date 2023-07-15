@@ -1,14 +1,11 @@
 import { useState } from 'react';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
-import { setToLocalStoradge, filterMovies, getFromLocalStoradge, filterDuration } from '../../utils/SearchMovies';
+import { filterMovies, getFromLocalStoradge, filterDuration } from '../../utils/SearchMovies';
 
 export default function SearchSaveForm(props) {
-  const [search, setSearch] = useState( getFromLocalStoradge('saveSearch')
-    ? getFromLocalStoradge('saveSearch')
-    : ''
-    );
-  const [isShort, setIsShort] = useState(JSON.parse(getFromLocalStoradge('saveShort')));
+  const [search, setSearch] = useState('');
+  const [isShort, setIsShort] = useState(false);
   const [error, setError] = useState('');
   const [isValid, setIsValid] = useState(false);
 
@@ -25,20 +22,21 @@ export default function SearchSaveForm(props) {
   const handleSubmit = (evt) => {
     evt.preventDefault();
 
-    setToLocalStoradge('saveMovies', JSON.stringify(filterMovies(search.toLowerCase(), props.saveMovies)));
-    setToLocalStoradge('saveSearch', search);
-
-    props.changeSaveUserMovies(JSON.parse(getFromLocalStoradge('saveMovies')));
+    if (isShort) props.changeSaveMovies(filterDuration(filterMovies(search, JSON.parse(getFromLocalStoradge('saveMovies')))));
+    else props.changeSaveMovies(filterMovies(search, JSON.parse(getFromLocalStoradge('saveMovies'))));
   }
 
   const handleShortStatus = () => {
-    setToLocalStoradge('saveShort', !isShort);
     setIsShort(!isShort);
 
-    if (!isShort) props.changeSaveUserMovies(filterDuration(JSON.parse(getFromLocalStoradge('saveMovies'))));
-    else props.changeSaveUserMovies(JSON.parse(getFromLocalStoradge('saveMovies')));
+    if (!isShort) {
+      if (search) props.changeSaveMovies(filterMovies(search, filterDuration(JSON.parse(getFromLocalStoradge('saveMovies')))));
+      else props.changeSaveMovies(filterDuration(JSON.parse(getFromLocalStoradge('saveMovies'))));
+    } else {
+      if (search) props.changeSaveMovies(filterMovies(search, JSON.parse(getFromLocalStoradge('saveMovies'))));
+      else props.changeSaveMovies(JSON.parse(getFromLocalStoradge('saveMovies')));
+    }
   }
-
 
   return(
     <section className='searchForm'>
