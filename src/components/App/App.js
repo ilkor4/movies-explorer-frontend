@@ -99,12 +99,7 @@ export default function App() {
         setUserMovies([]);
         setOptionalMovies([]);
 
-        localStorage.removeItem('short');
-        localStorage.removeItem('initialMovies');
-        localStorage.removeItem('saveShort');
-        localStorage.removeItem('search');
-        localStorage.removeItem('movies');
-        localStorage.removeItem('saveMovies');
+        localStorage.clear();
 
         navigate('/', { replace: true });
       })
@@ -165,7 +160,6 @@ export default function App() {
   const handleOptionalCards = () => {
     setUserMovies([...userMovies, ...renderOptional(window.innerWidth, optionalMovies)]);
     setOptionalMovies(changeOptional(window.innerWidth, optionalMovies));
-    console.log(optionalMovies)
   }
 
   const isSaveMovie = (saveMovies, movieId) => {
