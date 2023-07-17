@@ -40,6 +40,7 @@ export default function App() {
     ? renderCards(windowSize, filterDuration(JSON.parse(getFromLocalStoradge('movies'))))
     : renderCards(windowSize, JSON.parse(getFromLocalStoradge('movies')))
   );
+  const [saveUserMovies, setSaveUserMovies] = React.useState([]);
   const [optionalMovies, setOptionalMovies] = React.useState(JSON.parse(getFromLocalStoradge('short'))
   ? optionalCards(windowSize, filterDuration(JSON.parse(getFromLocalStoradge('movies'))))
   : optionalCards(windowSize, JSON.parse(getFromLocalStoradge('movies')))
@@ -119,6 +120,7 @@ export default function App() {
     getUserMovies()
       .then((saveMovies) => {
         setSaveMovies(saveMovies);
+        setSaveUserMovies(saveMovies);
         setToLocalStoradge('saveMovies', JSON.stringify(saveMovies));
       })
       .catch((err) => setMessage(err.message));
@@ -191,7 +193,7 @@ export default function App() {
             <ProtectedRoute isLogged={isLogged} element={
               <>
                 <HeaderLanding onBurgerClick= {() => setIsBurgerOpen(true)} />
-                <Movies isMain={true} movies={movies} openPreloader={setIsPreloaderOpen} saveMovies={saveMovies} userMovies={userMovies} setMovies={setMovies} changeUserMovies={setUserMovies} onLike={handleLikeMovie} onAddCards={handleOptionalCards} isOpen={isPreloaderOpen} setMessage={setMessage} optionalMovies={optionalMovies} setOptionalMovies={setOptionalMovies} />
+                <Movies isMain={true} movies={movies} openPreloader={setIsPreloaderOpen} saveMovies={saveUserMovies} userMovies={userMovies} setMovies={setMovies} changeUserMovies={setUserMovies} onLike={handleLikeMovie} onAddCards={handleOptionalCards} isOpen={isPreloaderOpen} setMessage={setMessage} optionalMovies={optionalMovies} setOptionalMovies={setOptionalMovies} />
                 <Footer />
                 <Burger onClose= {() => setIsBurgerOpen(false)} isBurgerOpen={isBurgerOpen}/>
               </>
@@ -201,7 +203,7 @@ export default function App() {
             <ProtectedRoute isLogged={isLogged} element={
               <>
                 <HeaderLanding onBurgerClick= {() => setIsBurgerOpen(true)} />
-                <Movies isMain={false} movies={saveMovies} saveMovies={saveMovies} changeSaveMovies={setSaveMovies} onDelete={handleDeleteMovie} isOpen={isPreloaderOpen} />
+                <Movies isMain={false} movies={saveMovies} saveMovies={saveUserMovies} changeSaveMovies={setSaveMovies} onDelete={handleDeleteMovie} isOpen={isPreloaderOpen} />
                 <Footer />
                 <Burger onClose= {() => setIsBurgerOpen(false)} isBurgerOpen={isBurgerOpen} />
               </>
