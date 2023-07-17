@@ -203,7 +203,7 @@ export default function App() {
             <ProtectedRoute isLogged={isLogged} element={
               <>
                 <HeaderLanding onBurgerClick= {() => setIsBurgerOpen(true)} />
-                <Movies isMain={false} movies={saveMovies} saveMovies={saveUserMovies} changeSaveMovies={setSaveMovies} onDelete={handleDeleteMovie} isOpen={isPreloaderOpen} />
+                <Movies isMain={false} movies={saveMovies} saveMovies={saveMovies} changeSaveMovies={setSaveMovies} onDelete={handleDeleteMovie} isOpen={isPreloaderOpen} />
                 <Footer />
                 <Burger onClose= {() => setIsBurgerOpen(false)} isBurgerOpen={isBurgerOpen} />
               </>
