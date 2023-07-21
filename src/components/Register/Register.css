@@ -23,6 +23,11 @@
   height: 38px;
   object-fit: contain;
   align-self: flex-start;
+  transition: .7s ease;
+}
+
+.register__logo:hover {
+  opacity: .7;
 }
 
 .register__title {
@@ -91,6 +96,11 @@
   line-height: 1.21;
   cursor: pointer;
   transition: .7s ease;
+}
+
+.form__save-button:disabled {
+  background-color: var(--bg-color);
+
 }
 
 .form__save-button:hover {

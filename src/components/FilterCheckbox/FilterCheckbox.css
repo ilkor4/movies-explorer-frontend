@@ -25,7 +25,7 @@
   transition: .8s ease;
 }
 
-.tumb__checkbox:checked + .tumb__visible-checkbox {
+.tumb__visible-checkbox_active {
   background-image: url(../../images/tumbIcon.svg);
 }
 

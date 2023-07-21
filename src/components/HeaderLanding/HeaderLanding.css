@@ -9,6 +9,10 @@
   font-family: var(--font-family);
 }
 
+.header-landing_type_main {
+  background-color: #073042;
+}
+
 .header-landing__logo {
   width: 38px;
   height: 38px;
@@ -52,7 +56,7 @@
   display: none;
   padding: 0;
   border: none;
-  background-color: var(--bg-color);
+  background-color: inherit;
   background-image: url(../../images/menuIcon.svg);
   background-repeat: no-repeat;
   cursor: pointer;

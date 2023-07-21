@@ -87,7 +87,7 @@
 .form__profile-save-button {
   margin: 127px 0 0;
   padding: 0;
-  background-color:var(--bg-color);
+  background-color: var(--bg-color);
   border: none;
   color: var(--text-color);
   font-size: 13px;
@@ -99,6 +99,15 @@
 
 .form__profile-save-button:hover {
   opacity: .8;
+}
+
+.form__profile-save-button:disabled {
+  opacity: .5;
+  cursor:inherit;
+}
+
+.form__profile-save-button:disabled:hover {
+  opacity: .5;
 }
 
 .form__profile-link {
