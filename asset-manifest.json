@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/movies-explorer-frontend/static/css/main.8fd5f717.css",
-    "main.js": "/movies-explorer-frontend/static/js/main.bc6fab14.js",
+    "main.js": "/movies-explorer-frontend/static/js/main.ebee7eae.js",
     "static/media/aboutMeImage.jpg": "/movies-explorer-frontend/static/media/aboutMeImage.043ad8144526e21d48ce.jpg",
     "static/media/Inter-Bold.woff": "/movies-explorer-frontend/static/media/Inter-Bold.1e547cd04bfe2dae1f98.woff",
     "static/media/Inter-Medium.woff": "/movies-explorer-frontend/static/media/Inter-Medium.44e343ff76a98508d309.woff",
@@ -25,10 +25,10 @@
     "static/media/tumbOffIcon.svg": "/movies-explorer-frontend/static/media/tumbOffIcon.9ac1fab9c57478d8bbf3.svg",
     "static/media/tumbIcon.svg": "/movies-explorer-frontend/static/media/tumbIcon.b979b1e43ced8102ff91.svg",
     "main.8fd5f717.css.map": "/movies-explorer-frontend/static/css/main.8fd5f717.css.map",
-    "main.bc6fab14.js.map": "/movies-explorer-frontend/static/js/main.bc6fab14.js.map"
+    "main.ebee7eae.js.map": "/movies-explorer-frontend/static/js/main.ebee7eae.js.map"
   },
   "entrypoints": [
     "static/css/main.8fd5f717.css",
-    "static/js/main.bc6fab14.js"
+    "static/js/main.ebee7eae.js"
   ]
 }
