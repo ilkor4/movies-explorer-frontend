@@ -4,15 +4,16 @@ import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import { setToLocalStoradge, filterMovies, getFromLocalStoradge, filterDuration } from '../../utils/SearchMovies';
 import { getMovies } from '../../utils/MoviesApi';
 import { renderCards, optionalCards } from '../../utils/WindowResize';
+import { naming } from '../../utils/constants';
 
 import '../SearchForm/SearchForm.css';
 
 export default function SearchForm(props) {
-  const [search, setSearch] = useState( getFromLocalStoradge('search')
-    ? getFromLocalStoradge('search')
+  const [search, setSearch] = useState( getFromLocalStoradge(naming.search)
+    ? getFromLocalStoradge(naming.search)
     : ''
     );
-  const [isShort, setIsShort] = useState(JSON.parse(getFromLocalStoradge('short')));
+  const [isShort, setIsShort] = useState(JSON.parse(getFromLocalStoradge(naming.short)));
   const [error, setError] = useState('');
   const [isValid, setIsValid] = useState(false);
 
@@ -32,43 +33,47 @@ export default function SearchForm(props) {
     if (!props.movies || props.movies.length === 0) { try {
       props.openPreloader(true)
 
+      // Ожидание получения фильмов
       const movies  = await getMovies();
 
       props.openPreloader(false);
       props.setMovies(movies);
 
-      setToLocalStoradge('initialMovies', JSON.stringify(movies));
-      setToLocalStoradge('movies', JSON.stringify(filterMovies(search.toLowerCase(), movies)));
-      setToLocalStoradge('search', search);
+      // Загрузка данных в локальное хранилище
+      setToLocalStoradge(naming.initialMovies, JSON.stringify(movies));
+      setToLocalStoradge(naming.movies, JSON.stringify(filterMovies(search.toLowerCase(), movies)));
+      setToLocalStoradge(naming.search, search);
 
-      props.changeUserMovies(renderCards(window.innerWidth, JSON.parse(getFromLocalStoradge('movies'))));
-      props.setOptionalMovies(optionalCards(window.innerWidth, JSON.parse(getFromLocalStoradge('movies'))));
+      // Изменение стейтов сохранненых отрисованных и дполнительных фильмов
+      props.changeUserMovies(renderCards(window.innerWidth, JSON.parse(getFromLocalStoradge(naming.movies))));
+      props.setOptionalMovies(optionalCards(window.innerWidth, JSON.parse(getFromLocalStoradge(naming.movies))));
     } catch(err) {
         props.openPreloader(false);
         props.setMessage('Во время запроса произошла ошибка.');
     }
     } else {
-      setToLocalStoradge('movies', JSON.stringify(filterMovies(search.toLowerCase(), JSON.parse(getFromLocalStoradge('initialMovies')))));
-      setToLocalStoradge('search', search);
+      // Загрузка данных в локальное хранилище
+      setToLocalStoradge(naming.movies, JSON.stringify(filterMovies(search.toLowerCase(), JSON.parse(getFromLocalStoradge(naming.initialMovies)))));
+      setToLocalStoradge(naming.search, search);
 
-      props.changeUserMovies(renderCards(window.innerWidth, JSON.parse(getFromLocalStoradge('movies'))));
-      props.setOptionalMovies(optionalCards(window.innerWidth, JSON.parse(getFromLocalStoradge('movies'))));
+      // Изменение стейтов сохранненых отрисованных и дполнительных фильмов
+      props.changeUserMovies(renderCards(window.innerWidth, JSON.parse(getFromLocalStoradge(naming.movies))));
+      props.setOptionalMovies(optionalCards(window.innerWidth, JSON.parse(getFromLocalStoradge(naming.movies))));
     }
-
-    console.log(props.userMovies);
-    console.log(props.optionalMovies);
   }
 
   const handleShortStatus = () => {
-    setToLocalStoradge('short', !isShort);
+    setToLocalStoradge(naming.short, !isShort);
     setIsShort(!isShort);
 
     if (!isShort) {
-      props.changeUserMovies(renderCards(window.innerWidth, filterDuration(JSON.parse(getFromLocalStoradge('movies')))));
-      props.setOptionalMovies(optionalCards(window.innerWidth, filterDuration(JSON.parse(getFromLocalStoradge('movies')))));
+      // Изменение стейтов сохранненых отрисованных и дполнительных фильмов в зависимости от состояния кнопки корткометражек
+      props.changeUserMovies(renderCards(window.innerWidth, filterDuration(JSON.parse(getFromLocalStoradge(naming.movies)))));
+      props.setOptionalMovies(optionalCards(window.innerWidth, filterDuration(JSON.parse(getFromLocalStoradge(naming.movies)))));
     } else {
-      props.changeUserMovies(renderCards(window.innerWidth, JSON.parse(getFromLocalStoradge('movies'))));
-      props.setOptionalMovies(optionalCards(window.innerWidth, JSON.parse(getFromLocalStoradge('movies'))));
+      // Изменение стейтов сохранненых отрисованных и дполнительных фильмов в зависимости от состояния кнопки корткометражек
+      props.changeUserMovies(renderCards(window.innerWidth, JSON.parse(getFromLocalStoradge(naming.movies))));
+      props.setOptionalMovies(optionalCards(window.innerWidth, JSON.parse(getFromLocalStoradge(naming.movies))));
   }
   }
 

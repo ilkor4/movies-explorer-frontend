@@ -1,3 +1,4 @@
+// Функция - отрисовка различного количесва карточек в зависимости от ширины дисплея
 export const renderCards = (size, array) => {
   if (array) {
     if (size > 1270) {
@@ -20,6 +21,7 @@ export const renderCards = (size, array) => {
   }
 }
 
+// Функция - добавление в дополнительный массив различного количесва карточек в зависимости от ширины дисплея
 export const optionalCards = (size, array) => {
   if (array) {
     if (size > 1270) return array.slice(16, );
@@ -29,6 +31,7 @@ export const optionalCards = (size, array) => {
   }
 }
 
+// Функция - отрисовка из дополнительного массива карточек в зависимости от ширины дисплея
 export const renderOptional = (size, array) => {
   if (size > 1270) {
     return (array.length >= 4)
@@ -49,6 +52,7 @@ export const renderOptional = (size, array) => {
   }
 }
 
+// Функция - изменение дополнительного массива карточек в зависимости от ширины дисплея
 export const changeOptional = (size, array) => {
   if (size > 1270) {
     return (array.length >= 4)

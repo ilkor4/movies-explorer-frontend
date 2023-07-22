@@ -19,7 +19,12 @@ export default function MoviesCardList(props) {
                       ? item.id
                       : item._id
                     }>
-                      <MoviesCard card={item} saveMovies={props.saveMovies} isMain={props.isMain} onLike={props.onLike} onDelete={props.onDelete} />
+                      <MoviesCard
+                        card={item}
+                        saveMovies={props.saveMovies}
+                        isMain={props.isMain}
+                        onLike={props.onLike}
+                        onDelete={props.onDelete} />
                     </li>
                   )}
                   )}

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
 import { filterMovies, getFromLocalStoradge, filterDuration } from '../../utils/SearchMovies';
+import { naming } from '../../utils/constants';
 
 export default function SearchSaveForm(props) {
   const [search, setSearch] = useState('');
@@ -22,19 +23,22 @@ export default function SearchSaveForm(props) {
   const handleSubmit = (evt) => {
     evt.preventDefault();
 
-    if (isShort) props.changeSaveMovies(filterDuration(filterMovies(search, JSON.parse(getFromLocalStoradge('saveMovies')))));
-    else props.changeSaveMovies(filterMovies(search, JSON.parse(getFromLocalStoradge('saveMovies'))));
+    // Изменение отфильтрованных сохраненых фильмов в зависмости от состояния кнопки короткометражек
+    if (isShort) props.changeSaveMovies(filterDuration(filterMovies(search, JSON.parse(getFromLocalStoradge(naming.saveMovies)))));
+    else props.changeSaveMovies(filterMovies(search, JSON.parse(getFromLocalStoradge(naming.saveMovies))));
   }
 
   const handleShortStatus = () => {
     setIsShort(!isShort);
 
     if (!isShort) {
-      if (search) props.changeSaveMovies(filterMovies(search, filterDuration(JSON.parse(getFromLocalStoradge('saveMovies')))));
-      else props.changeSaveMovies(filterDuration(JSON.parse(getFromLocalStoradge('saveMovies'))));
+      // Изменение сохраненых фильмов в зависмости от состояния кнопки короткометражек
+      if (search) props.changeSaveMovies(filterMovies(search, filterDuration(JSON.parse(getFromLocalStoradge(naming.saveMovies)))));
+      else props.changeSaveMovies(filterDuration(JSON.parse(getFromLocalStoradge(naming.saveMovies))));
     } else {
-      if (search) props.changeSaveMovies(filterMovies(search, JSON.parse(getFromLocalStoradge('saveMovies'))));
-      else props.changeSaveMovies(JSON.parse(getFromLocalStoradge('saveMovies')));
+      // Изменение сохраненых фильмов в зависмости от состояния кнопки короткометражек
+      if (search) props.changeSaveMovies(filterMovies(search, JSON.parse(getFromLocalStoradge(naming.saveMovies))));
+      else props.changeSaveMovies(JSON.parse(getFromLocalStoradge(naming.saveMovies)));
     }
   }
 

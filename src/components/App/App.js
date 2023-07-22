@@ -25,46 +25,53 @@ import {
 } from '../../utils/MainApi';
 import { getFromLocalStoradge, filterDuration, setToLocalStoradge } from '../../utils/SearchMovies';
 import { renderCards, optionalCards, changeOptional, renderOptional } from '../../utils/WindowResize';
+import { naming } from '../../utils/constants';
 
 import '../App/App.css';
 
 export default function App() {
-  const [currentUser, setCurrentUser] = React.useState(null);
-  const [isLogged, setIsLogged] = React.useState(false);
-  const [isPreloaderOpen, setIsPreloaderOpen] = React.useState(false);
-  const [isBurgerOpen, setIsBurgerOpen] = React.useState(false);
-  const [windowSize, setWindowSize] = React.useState(window.innerWidth)
-  const [movies, setMovies] = React.useState(JSON.parse(getFromLocalStoradge('initialMovies')));
-  const [saveMovies, setSaveMovies] = React.useState([]);
-  const [userMovies, setUserMovies] = React.useState(JSON.parse(getFromLocalStoradge('short'))
-    ? renderCards(windowSize, filterDuration(JSON.parse(getFromLocalStoradge('movies'))))
-    : renderCards(windowSize, JSON.parse(getFromLocalStoradge('movies')))
-  );
-  const [saveUserMovies, setSaveUserMovies] = React.useState([]);
-  const [optionalMovies, setOptionalMovies] = React.useState(JSON.parse(getFromLocalStoradge('short'))
-  ? optionalCards(windowSize, filterDuration(JSON.parse(getFromLocalStoradge('movies'))))
-  : optionalCards(windowSize, JSON.parse(getFromLocalStoradge('movies')))
-);
-  const [message, setMessage] = React.useState('');
+  const [currentUser, setCurrentUser] = React.useState(null); // Стейт - текущий пользователь
+  const [isLogged, setIsLogged] = React.useState(false); // Стейт - вошёл ли пользователь?
+  const [isPreloaderOpen, setIsPreloaderOpen] = React.useState(false); // Стейт - открыт ли прелоадер?
+  const [isBurgerOpen, setIsBurgerOpen] = React.useState(false); // Стейт - открыт ли бургер ?
+  const [windowSize, setWindowSize] = React.useState(window.innerWidth) // Стейт - ширина окна браузера
+  const [movies, setMovies] = React.useState(JSON.parse(getFromLocalStoradge(naming.initialMovies))); // Стейт - исходные фильмы
+  const [saveMovies, setSaveMovies] = React.useState([]); // Стейт - отрисованные сохранённые фильмы
+  const [userMovies, setUserMovies] = React.useState(JSON.parse(getFromLocalStoradge(naming.short))
+    ? renderCards(windowSize, filterDuration(JSON.parse(getFromLocalStoradge(naming.movies))))
+    : renderCards(windowSize, JSON.parse(getFromLocalStoradge(naming.movies)))
+  ); // Стейт - отрисованные фильмы
+  const [saveUserMovies, setSaveUserMovies] = React.useState([]); // Стейт - исходные сохранённые фильмы
+  const [optionalMovies, setOptionalMovies] = React.useState(JSON.parse(getFromLocalStoradge(naming.short))
+  ? optionalCards(windowSize, filterDuration(JSON.parse(getFromLocalStoradge(naming.movies))))
+  : optionalCards(windowSize, JSON.parse(getFromLocalStoradge(naming.movies)))
+); // Стейт - дополнительные фильмы
+  const [message, setMessage] = React.useState(''); // Стейт - сообщение информационного попапа
   const navigate = useNavigate();
 
+  // Эффект - проверка токена
   React.useEffect(() => {
     handleCheckToken();
   }, [isLogged]);
 
+  // Эффект - получение сохранённых фильмов
   React.useEffect(() => {
     if (isLogged) handleUserMovies();
   }, [isLogged]);
 
+  // Эффект - отслеживание ширины экрана
   React.useEffect(() => {
     let timeout = null;
+
     window.addEventListener('resize', resizeChange);
+
     return () => {
       clearTimeout(timeout);
       window.removeEventListener('resize', resizeChange);
     }
-  })
+  });
 
+  // Функция - проверка токена
   const handleCheckToken = () => {
     checkToken()
       .then((user) => {
@@ -73,14 +80,15 @@ export default function App() {
         setIsLogged(true);
       })
       .catch(() => setIsLogged(false));
-  }
-
+  };
+   // Функция - регистрация пользователя
   const handleRegisterUser = (name, email, password) => {
     register(name, email, password)
       .then(() => handleAuthorizedUser(email, password))
       .catch((err) => setMessage(err.message));
-  }
+  };
 
+   // Функция - авторизация пользователя
   const handleAuthorizedUser = (email, password) => {
     authorize(email, password)
       .then(() => {
@@ -89,8 +97,9 @@ export default function App() {
         navigate('/movies', { replace: true });
       })
       .catch((err) => setMessage(err.message));
-  }
+  };
 
+  // Функция - выход пользователя
   const handleSignoutUser = () => {
     signOut()
       .then(() => {
@@ -105,8 +114,9 @@ export default function App() {
         navigate('/', { replace: true });
       })
       .catch((err) => setMessage(err.message));
-  }
+  };
 
+   // Функция - обновления пользователя
   const handleUpdateUser = (name, email) => {
     updateUser(name, email)
       .then((user) => {
@@ -114,18 +124,20 @@ export default function App() {
         setCurrentUser(user);
       })
       .catch((err) => setMessage(err.message));
-  }
+  };
 
+   // Функция - получению сохранённых фильмов
   const handleUserMovies = () => {
     getUserMovies()
       .then((saveMovies) => {
         setSaveMovies(saveMovies);
         setSaveUserMovies(saveMovies);
-        setToLocalStoradge('saveMovies', JSON.stringify(saveMovies));
+        setToLocalStoradge(naming.saveMovies, JSON.stringify(saveMovies));
       })
       .catch((err) => setMessage(err.message));
-  }
+  };
 
+   // Функция - лайк/дизлайк фильма
   const handleLikeMovie = (movie) => {
     getUserMovies()
       .then((saveMovies) => {
@@ -133,41 +145,52 @@ export default function App() {
         else handleDeleteMovie(getMyId(saveMovies, movie.id));
       })
       .catch((err) => setMessage(err.message));
-  }
+  };
 
+   // Функция - сохранения фильма
   const handleSaveMovie = (movie) => {
     saveMovie(movie)
     .then(() => handleUserMovies())
     .catch((err) => setMessage(err));
-  }
+  };
 
+   // Функция - удаление фильма
   const handleDeleteMovie = (movieId) => {
     deleteMovie(movieId)
       .then(() => {
         handleUserMovies();
       })
       .catch((err) => setMessage(err));
-  }
+  };
+
+  // Функция - измененения отрисовки фильмов при ресайзе(изменении ширины)
   const resizeChange = () => {
     setWindowSize(window.innerWidth);
-    if (JSON.parse(getFromLocalStoradge('short'))) {
-      setUserMovies(filterDuration(renderCards(windowSize, JSON.parse(getFromLocalStoradge('movies')))));
-      setOptionalMovies(filterDuration(optionalCards(windowSize, JSON.parse(getFromLocalStoradge('movies')))));
+
+    if (JSON.parse(getFromLocalStoradge(naming.short))) {
+      // Изменение стейтов сохранненых отрисованных и дполнительных фильмов
+      setUserMovies(filterDuration(renderCards(windowSize, JSON.parse(getFromLocalStoradge(naming.movies)))));
+      setOptionalMovies(filterDuration(optionalCards(windowSize, JSON.parse(getFromLocalStoradge(naming.movies)))));
     } else {
-      setUserMovies(renderCards(windowSize, JSON.parse(getFromLocalStoradge('movies'))));
-      setOptionalMovies(optionalCards(windowSize, JSON.parse(getFromLocalStoradge('movies'))));
+      // Изменение стейтов сохранненых отрисованных и дполнительных фильмов
+      setUserMovies(renderCards(windowSize, JSON.parse(getFromLocalStoradge(naming.movies))));
+      setOptionalMovies(optionalCards(windowSize, JSON.parse(getFromLocalStoradge(naming.movies))));
     }
-  }
+  };
 
+  // Функция - добавление дополнительных карточек
   const handleOptionalCards = () => {
+    // Добавление в рендеренные карточки - новых
     setUserMovies([...userMovies, ...renderOptional(window.innerWidth, optionalMovies)]);
+    // Удаление из дополнительных карточек - добавленных
     setOptionalMovies(changeOptional(window.innerWidth, optionalMovies));
-  }
+  };
 
+  // Функция - проверка на сохранённость фильма
   const isSaveMovie = (saveMovies, movieId) => {
     return saveMovies.some((movie) => movie.movieId === movieId);
   }
-
+  // Функция - получения id
   const getMyId = (saveMovies, movieId) => {
     return (saveMovies.find((movie) => movie.movieId === movieId))._id;
   }
@@ -193,7 +216,21 @@ export default function App() {
             <ProtectedRoute isLogged={isLogged} element={
               <>
                 <HeaderLanding onBurgerClick= {() => setIsBurgerOpen(true)} />
-                <Movies isMain={true} movies={movies} openPreloader={setIsPreloaderOpen} saveMovies={saveUserMovies} userMovies={userMovies} setMovies={setMovies} changeUserMovies={setUserMovies} onLike={handleLikeMovie} onAddCards={handleOptionalCards} isOpen={isPreloaderOpen} setMessage={setMessage} optionalMovies={optionalMovies} setOptionalMovies={setOptionalMovies} />
+                <Movies
+                  isMain={true}
+                  movies={movies}
+                  openPreloader={setIsPreloaderOpen}
+                  saveMovies={saveUserMovies}
+                  userMovies={userMovies}
+                  setMovies={setMovies}
+                  changeUserMovies={setUserMovies}
+                  onLike={handleLikeMovie}
+                  onAddCards={handleOptionalCards}
+                  isOpen={isPreloaderOpen}
+                  setMessage={setMessage}
+                  optionalMovies={optionalMovies}
+                  setOptionalMovies={setOptionalMovies}
+                />
                 <Footer />
                 <Burger onClose= {() => setIsBurgerOpen(false)} isBurgerOpen={isBurgerOpen}/>
               </>
@@ -203,7 +240,14 @@ export default function App() {
             <ProtectedRoute isLogged={isLogged} element={
               <>
                 <HeaderLanding onBurgerClick= {() => setIsBurgerOpen(true)} />
-                <Movies isMain={false} movies={saveMovies} saveMovies={saveMovies} changeSaveMovies={setSaveMovies} onDelete={handleDeleteMovie} isOpen={isPreloaderOpen} />
+                <Movies
+                  isMain={false}
+                  movies={saveMovies}
+                  saveMovies={saveMovies}
+                  changeSaveMovies={setSaveMovies}
+                  onDelete={handleDeleteMovie}
+                  isOpen={isPreloaderOpen}
+                />
                 <Footer />
                 <Burger onClose= {() => setIsBurgerOpen(false)} isBurgerOpen={isBurgerOpen} />
               </>
