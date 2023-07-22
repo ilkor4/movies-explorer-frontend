@@ -32,8 +32,8 @@ export default function Movies(props) {
           onLike={props.onLike}
           onDelete={props.onDelete}
           isOpen={props.isOpen}
-          onAddCards={props.onAddCards} o
-          ptionalMovies={props.optionalMovies}
+          onAddCards={props.onAddCards}
+          optionalMovies={props.optionalMovies}
           setOptionalMovies={props.setOptionalMovies}/>
       </>
     </main>
