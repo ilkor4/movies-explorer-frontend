@@ -57,23 +57,21 @@
 `npm run start` — запускает сервер
 `npm run dev` — запускает сервер с hot-reload
 
-<h2>Над проектом работал:</h2>
-<h3><a href="https://github.com/ilkor4" target="_blank">Il.kor</a></h3>
-
 ________________________________
 
 
  ## Ссылки на проект
 
- - IP 158.160.65.230
 
- - <a href="https://github.com/ilkor4/movies-explorer-api.git" target="_blank">Сcылка на репозиторий</a>
+ - <a href="https://github.com/ilkor4/movies-explorer-frontend.git" target="_blank">Сcылка на репозиторий</a>
 
- - Frontend https://ilkor.student.nomoredomains.rocks
+ - Frontend <a href="https://ilkor4.github.io/movies-explorer-frontend" target="_blank">Ссылка на сайт</a>
 
- - Backend https://api.ilkor.students.nomoredomains.rocks
+ - Backend <a href="https://github.com/ilkor4/movies-explorer-api.git" target="_blank">Ссылка на сайт</a>
 
- - Pull request https://github.com/ilkor4/movies-explorer-frontend/pull/2
 
 ## Ссылки на макет
 https://yadi.sk/d/lFSNEfxxdjCoFQ
+
+<h2>Над проектом работал:</h2>
+<h3><a href="https://github.com/ilkor4" target="_blank">Il.kor</a></h3>
